@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>JB Funnels | Herramientas de Auditoría META ADS, IA & Formación</title>
-  <meta name="description" content="Firma de ingeniería publicitaria y optimización algorítmica. Sustituimos la intuición y los intereses obsoletos por visión computacional, telemetría CAPI 2.0 y modelos de mínima entropía en Meta Ads.">
+  <title>JB Funnels | Herramientas META ADS, Telemetría & Formación</title>
+  <meta name="description" content="Firma de ingeniería publicitaria y optimización algorítmica. Dominio de Semantic IDs, visión computacional, telemetría CAPI 2.0 y modelos de mínima entropía en Meta Ads.">
   <link rel="icon" type="image/png" href="logo.png">
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,66 +13,123 @@
       theme: {
         extend: {
           colors: {
-            midnight: '#0F172A',
-            slateDark: '#1E293B',
-            algoCyan: '#0284C7',
-            electricSky: '#38BDF8',
-            amberConv: '#D97706',
+            midnight: '#0B0F17',
+            slateDark: '#161F30',
+            cempasuchil: '#FF6B00',
+            neonOrange: '#FF8800',
+            amberConv: '#F59E0B',
+            mysticPurple: '#8B5CF6',
+            deepViolet: '#4C1D95'
           }
         }
       }
     }
   </script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
   <style>
     body { font-family: 'Inter', sans-serif; }
-    .glow-cyan:hover { box-shadow: 0 0 25px rgba(2, 132, 199, 0.35); }
-    .glow-amber:hover { box-shadow: 0 0 25px rgba(217, 119, 6, 0.4); }
+    .glow-orange:hover { box-shadow: 0 0 25px rgba(255, 107, 0, 0.45); }
+    .glow-amber:hover { box-shadow: 0 0 25px rgba(245, 158, 11, 0.4); }
+    .glow-purple:hover { box-shadow: 0 0 25px rgba(139, 92, 246, 0.35); }
+    
+    /* Decoración de araña colgante interactiva en la esquina */
+    #spider-container {
+      position: fixed;
+      top: 0;
+      right: 32px;
+      z-index: 60;
+      pointer-events: auto;
+      cursor: pointer;
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+    #spider-container:hover {
+      transform: translateY(28px);
+    }
+    .spider-thread {
+      width: 1px;
+      height: 70px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.2), rgba(255, 107, 0, 0.7));
+      margin: 0 auto;
+    }
+    .spider-body {
+      width: 18px;
+      height: 22px;
+      background: #1E293B;
+      border: 1.5px solid #FF6B00;
+      border-radius: 50% 50% 45% 45%;
+      position: relative;
+      box-shadow: 0 0 10px rgba(255, 107, 0, 0.5);
+    }
+    .spider-leg {
+      position: absolute;
+      width: 12px;
+      height: 1.5px;
+      background: #FF6B00;
+    }
+    .spider-leg.l1 { top: 4px; left: -9px; transform: rotate(-25deg); }
+    .spider-leg.l2 { top: 9px; left: -10px; transform: rotate(0deg); }
+    .spider-leg.l3 { top: 14px; left: -9px; transform: rotate(25deg); }
+    .spider-leg.r1 { top: 4px; right: -9px; transform: rotate(25deg); }
+    .spider-leg.r2 { top: 9px; right: -10px; transform: rotate(0deg); }
+    .spider-leg.r3 { top: 14px; right: -9px; transform: rotate(-25deg); }
   </style>
 </head>
-<body class="bg-midnight text-slate-100 antialiased selection:bg-algoCyan selection:text-white relative">
+<body class="bg-midnight text-slate-100 antialiased selection:bg-cempasuchil selection:text-white relative overflow-x-hidden">
 
-  <!-- FONDO ANIMADO SUTIL (RED NEURONAL / ALGORITMOS) -->
-  <canvas id="neuralCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-25"></canvas>
+  <!-- ARAÑA DE NOVIEMBRE COLGANTE EN LA ESQUINA -->
+  <div id="spider-container" title="Cyber-Noviembre JB Funnels">
+    <div class="spider-thread"></div>
+    <div class="spider-body">
+      <div class="spider-leg l1"></div>
+      <div class="spider-leg l2"></div>
+      <div class="spider-leg l3"></div>
+      <div class="spider-leg r1"></div>
+      <div class="spider-leg r2"></div>
+      <div class="spider-leg r3"></div>
+    </div>
+  </div>
+
+  <!-- FONDO ANIMADO TEMÁTICO NOVIEMBRE (CANVAS CON MURCIÉLAGOS Y BRASAS DE CEMPASÚCHIL) -->
+  <canvas id="novemberCanvas" class="fixed top-0 left-0 w-full h-full pointer-events-none -z-10 opacity-40"></canvas>
 
   <!-- NAVBAR -->
-  <header class="fixed top-0 left-0 w-full z-50 bg-midnight/90 backdrop-blur-md border-b border-slate-800">
+  <header class="fixed top-0 left-0 w-full z-50 bg-midnight/90 backdrop-blur-md border-b border-orange-950/40">
     <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
       <div class="flex items-center space-x-3">
         <a href="#" class="flex items-center gap-3">
           <img src="logo.png" alt="JB Funnels Logo" onerror="this.style.display='none'; document.getElementById('fallback-logo').style.display='flex';" class="h-10 md:h-12 w-auto object-contain">
-          <div id="fallback-logo" class="hidden w-10 h-10 rounded-full border-2 border-electricSky items-center justify-center font-black text-electricSky bg-slateDark shadow-lg">
+          <div id="fallback-logo" class="hidden w-10 h-10 rounded-full border-2 border-cempasuchil items-center justify-center font-black text-cempasuchil bg-slateDark shadow-lg">
             JB
           </div>
           <div class="flex flex-col">
             <span class="font-bold text-lg tracking-wider text-white">JB FUNNELS</span>
-            <span class="text-[10px] uppercase tracking-widest text-electricSky font-semibold">Conecta · Crea · Crece</span>
+            <span class="text-[10px] uppercase tracking-widest text-cempasuchil font-semibold">Conecta · Crea · Crece</span>
           </div>
         </a>
       </div>
 
       <nav class="hidden md:flex items-center space-x-8 text-sm font-medium text-slate-300">
-        <a href="#suite" class="hover:text-electricSky transition">Suite Tecnológica</a>
-        <a href="#capacitaciones" class="hover:text-electricSky transition">Capacitaciones</a>
-        <a href="#calculadora" class="hover:text-electricSky transition">Simulador Forense</a>
-        <a href="#contacto" class="hover:text-electricSky transition">Contacto</a>
+        <a href="#capacitaciones" class="hover:text-cempasuchil transition">Formación & Consultoría</a>
+        <a href="#suite" class="hover:text-cempasuchil transition">Herramientas & Políticas</a>
+        <a href="#calculadora" class="hover:text-cempasuchil transition">Simulador Forense</a>
+        <a href="#contacto" class="hover:text-cempasuchil transition">Contacto</a>
       </nav>
 
       <!-- ACCIONES: REDES SOCIALES + AGENDAR MI TALLER -->
       <div class="flex items-center space-x-3 md:space-x-4">
         <!-- Icono Facebook -->
         <a href="https://www.facebook.com/share/1FFRKCUr2s/" target="_blank" rel="noopener noreferrer" 
-           class="text-slate-400 hover:text-electricSky transition p-1.5" title="Facebook JB Funnels">
+           class="text-slate-400 hover:text-cempasuchil transition p-1.5" title="Facebook JB Funnels">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
         </a>
         <!-- Icono Instagram -->
         <a href="https://www.instagram.com/jbfunnels?igsi=MjVib2Y3eHRuOHYx" target="_blank" rel="noopener noreferrer" 
-           class="text-slate-400 hover:text-electricSky transition p-1.5" title="Instagram JB Funnels">
+           class="text-slate-400 hover:text-cempasuchil transition p-1.5" title="Instagram JB Funnels">
           <svg class="w-5 h-5 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
         </a>
 
         <a href="https://calendly.com/jbfunnelsmx/30min" target="_blank" 
-           class="bg-amberConv hover:bg-amber-600 text-white text-xs md:text-sm font-bold px-4 md:px-5 py-2.5 rounded-lg transition glow-amber flex items-center gap-2">
+           class="bg-cempasuchil hover:bg-orange-600 text-white text-xs md:text-sm font-bold px-4 md:px-5 py-2.5 rounded-lg transition glow-orange flex items-center gap-2 shadow-lg shadow-orange-950/40">
           <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"/></svg>
           Agendar mi taller
         </a>
@@ -82,35 +139,254 @@
 
   <!-- HERO SECTION -->
   <section class="pt-36 pb-20 px-6 max-w-7xl mx-auto text-center relative overflow-hidden">
-    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-algoCyan/40 bg-algoCyan/10 text-electricSky text-xs font-semibold uppercase tracking-wider mb-6">
-      <span class="w-2 h-2 rounded-full bg-electricSky animate-ping"></span>
-      Actualizado a septiembre 2026
+    <!-- Insignia Actualizada -->
+    <div class="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-cempasuchil/40 bg-cempasuchil/10 text-orange-300 text-xs font-semibold uppercase tracking-wider mb-6">
+      <span class="w-2 h-2 rounded-full bg-cempasuchil animate-ping"></span>
+      Actualizado al 3er Cuatrimestre 2026
     </div>
-    <h1 class="text-4xl md:text-6xl lg:text-7xl font-extrabold tracking-tight max-w-5xl mx-auto leading-tight">
-      Deja de improvisar en META ADS: <br>
-      <span class="text-transparent bg-clip-text bg-gradient-to-r from-electricSky via-algoCyan to-sky-300">
-        «El Creativo es la Segmentación»
+
+    <!-- Titular Principal Modificado -->
+    <h1 class="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black tracking-tight max-w-5xl mx-auto leading-tight">
+      ¿Tus campañas se mueren porque sigues improvisando? <br>
+      <span class="text-transparent bg-clip-text bg-gradient-to-r from-cempasuchil via-neonOrange to-amber-300">
+        «Los Semantic IDs: la nueva segmentación»
       </span>
     </h1>
-    <p class="mt-6 text-slate-400 text-base md:text-xl max-w-3xl mx-auto font-normal leading-relaxed">
+
+    <p class="mt-6 text-slate-300 text-base md:text-xl max-w-3xl mx-auto font-normal leading-relaxed">
       Firma de ingeniería publicitaria y optimización algorítmica. Sustituimos la intuición y los intereses obsoletos por visión computacional, telemetría CAPI 2.0 y modelos de mínima entropía en Meta Ads.
     </p>
+
     <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center items-center">
-      <a href="#capacitaciones" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-algoCyan hover:bg-sky-600 text-white font-bold transition shadow-lg glow-cyan text-sm tracking-wide">
+      <a href="#capacitaciones" class="w-full sm:w-auto px-8 py-4 rounded-xl bg-cempasuchil hover:bg-orange-600 text-white font-bold transition shadow-xl glow-orange text-sm tracking-wide">
         Explorar Modalidades de Formación
       </a>
-      <a href="#suite" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-slate-700 hover:border-electricSky text-slate-300 hover:text-white font-semibold transition text-sm">
-        Ver Herramientas de Auditoría &rarr;
+      <a href="#suite" class="w-full sm:w-auto px-8 py-4 rounded-xl border border-slate-700 hover:border-cempasuchil text-slate-300 hover:text-white font-semibold transition text-sm">
+        Ver Herramientas & Políticas &rarr;
       </a>
     </div>
   </section>
 
-  <!-- SECCIÓN: SUITE TECNOLÓGICA (HERRAMIENTAS DE AUDITORÍA) -->
-  <section id="suite" class="py-20 bg-slateDark/40 border-y border-slate-800">
+  <!-- PRIMER BLOQUE: SECCIÓN CAPACITACIONES (INVERTIDO AL PRIMER LUGAR) -->
+  <section id="capacitaciones" class="py-20 max-w-7xl mx-auto px-6 border-t border-slate-800/80">
+    <div class="text-center max-w-3xl mx-auto mb-14">
+      <span class="text-xs font-bold uppercase tracking-widest text-cempasuchil">Transferencia de Know-How</span>
+      <h2 class="text-3xl md:text-4xl font-extrabold mt-2 text-white">Programas de Formación y Consultoría en Campañas de Meta Ads y Telemetría</h2>
+      <p class="text-slate-400 mt-4 text-sm md:text-base">Capacitaciones de alto rendimiento diseñadas tanto para anunciantes individuales como para equipos completos y empresas.</p>
+    </div>
+
+    <!-- BOTONES SELECTORES -->
+    <div class="flex flex-wrap justify-center gap-3 mb-10" id="tabButtons">
+      <button onclick="setTab('taller1a1')" id="btn-taller1a1" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-cempasuchil text-white shadow-lg glow-orange">
+        🎯 Taller 1 a 1 Online (México y Habla Hispana)
+      </button>
+      <button onclick="setTab('equipos')" id="btn-equipos" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-slateDark text-slate-400 hover:text-white border border-slate-700">
+        🌐 Equipos de Trabajo (Online Internacional)
+      </button>
+      <button onclick="setTab('acelerador')" id="btn-acelerador" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-slateDark text-slate-400 hover:text-white border border-slate-700">
+        🚀 Programa Acelerador por Niveles
+      </button>
+      <button onclick="setTab('nacional')" id="btn-nacional" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-slateDark text-slate-400 hover:text-white border border-slate-700">
+        🇲🇽 In-Company Nacional (México)
+      </button>
+    </div>
+
+    <!-- PANELES DE CONTENIDO -->
+    <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 md:p-12 shadow-2xl">
+      
+      <!-- Panel 1: Taller 1 a 1 Online (INTACTO) -->
+      <div id="panel-taller1a1" class="tab-panel">
+        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
+          <div class="max-w-2xl">
+            <span class="text-xs font-bold px-3 py-1 rounded bg-amberConv/20 text-amber-400 border border-amberConv/30 uppercase">Mentoría Privada Individual</span>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Taller Personalizado 1 a 1 en Línea</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Intervención individual y directa sobre tus propias campañas. Cero teoría genérica: desarmamos tus conjuntos de anuncios, detectamos fugas de presupuesto y reconfiguramos tu infraestructura publicitaria en tiempo real; hemos llevado a principiantes de 0 a 100 y ayudado a agencias de marketing y nichos black.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Auditoría en Vivo</strong>
+                Diagnóstico de fugas TAM, LPLR y salud de CAPI 2.0 en tu cuenta.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Estructura Power ONE</strong>
+                Configuración CBO Broad eliminando segmentación obsoleta y creación de campañas alineadas a las políticas de META.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Prompts JSON a Medida</strong>
+                Especificaciones para rediseñar las fotos reales de tu producto o servicio.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Cero Tecnicismos Innecesarios</strong>
+                Adaptado tanto para directores como para dueños de negocio y principiantes.
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-80 bg-midnight/90 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Cobertura Geográfica</span>
+              <p class="text-base font-bold text-white mt-1">México y Países de Habla Hispana</p>
+              <div class="border-t border-slate-800 my-4"></div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Formato</span>
+              <p class="text-base font-bold text-white mt-1">Sesión en Vivo vía Google Meet</p>
+            </div>
+            <div class="mt-6 flex flex-col gap-3">
+              <a href="https://calendly.com/jbfunnelsmx/30min" target="_blank"
+                 class="block text-center py-3 bg-cempasuchil hover:bg-orange-600 text-white text-xs font-bold rounded-lg transition glow-orange">
+                Agendar Horario en Calendly
+              </a>
+              <a href="https://wa.me/p/28016004774760734/5219992248818" target="_blank"
+                 class="block text-center py-2.5 border border-slate-600 hover:border-cempasuchil text-slate-300 hover:text-white text-xs font-bold rounded-lg transition">
+                Ver Ficha en WhatsApp
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 2: Equipos de Trabajo (INTACTO) -->
+      <div id="panel-equipos" class="tab-panel hidden">
+        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
+          <div class="max-w-2xl">
+            <span class="text-xs font-bold px-3 py-1 rounded bg-mysticPurple/20 text-purple-300 border border-mysticPurple/30 uppercase">Estandarización Corporativa</span>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Capacitación de Equipos Online (Latam / España)</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Alinea a todo tu departamento de marketing, tráfico y diseño bajo los estándares algorítmicos de 2026. Tu equipo dominará la coincidencia vectorial, la neuroarquitectura de retención y la prevención del solapamiento de subastas.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Módulo 1: La Matriz de Meta</strong>
+                Vector del usuario, Semantics ID y prevención de Auction Overlap.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Módulo 2: Visión y OCR</strong>
+                ViASNet (atención en 500 ms) y validación de políticas con Rosetta OCR.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Módulo 3: Suites Propietarias</strong>
+                Adopción de Meta Architect y Metrics Auditor en el flujo diario.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Módulo 4: Telemetría IAB</strong>
+                Preservación de Core Web Vitals (LCP &lt; 2.2s) e infraestructura CAPI.
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-80 bg-midnight/90 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Audiencia Objetivo</span>
+              <p class="text-base font-bold text-white mt-1">Equipos de 3 a 25 miembros</p>
+              <div class="border-t border-slate-800 my-4"></div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Incluye</span>
+              <p class="text-base font-bold text-white mt-1">Grabación HD + Material Técnico</p>
+            </div>
+            <a href="https://wa.me/p/28488819220721856/5219992248818" target="_blank"
+               class="mt-6 block text-center py-3 bg-mysticPurple hover:bg-purple-600 text-white text-xs font-bold rounded-lg transition glow-purple">
+              Consultar disponibilidad en tiempo real
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 3: NUEVO - Programa Acelerador por Niveles -->
+      <div id="panel-acelerador" class="tab-panel hidden">
+        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
+          <div class="max-w-2xl">
+            <span class="text-xs font-bold px-3 py-1 rounded bg-orange-500/20 text-cempasuchil border border-orange-500/30 uppercase">Escalamiento Progresivo de Talento</span>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Programa Acelerador por Niveles</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Programa especializado orientado a empresas y equipos que buscan formar tanto a su personal principiante como avanzado, llevándolos paso a paso a través de 4 etapas de maestría técnica, creación visual, auditoría rigurosa y expansión multicanal.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Nivel 1: Arquitectura de Creativos</strong>
+                Creación correcta de imágenes de alta saliencia, videos con retención y copys persuasivos calibrados.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Nivel 2: Creación Precisa de Campañas</strong>
+                Configuración quirúrgica de estructuras CBO Broad y señales CAPI eliminando la fuga presupuestal.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Nivel 3: Auditoría Forense en Vivo</strong>
+                Despiece de métricas, diagnóstico de cuellos de botella y detección de fatiga creativa en tiempo real.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-cempasuchil block mb-1">Nivel 4: Políticas & Multicanal</strong>
+                Blindaje normativo de cuentas, difusión y monetización en plataformas complementarias (TikTok y YouTube).
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-80 bg-midnight/90 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Modalidad</span>
+              <p class="text-base font-bold text-white mt-1">Evolutivo por Etapas (Personalizado)</p>
+              <div class="border-t border-slate-800 my-4"></div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Dirigido a</span>
+              <p class="text-base font-bold text-white mt-1">Equipos en crecimiento y agencias</p>
+            </div>
+            <a href="https://wa.me/5219992248818?text=Hola%20JB%20Funnels,%20deseo%20información%20sobre%20el%20Programa%20Acelerador%20por%20Niveles" target="_blank"
+               class="mt-6 block text-center py-3 bg-cempasuchil hover:bg-orange-600 text-white text-xs font-bold rounded-lg transition glow-orange">
+              Consultar Plan de Aceleración
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Panel 4: In-Company Nacional (INTACTO) -->
+      <div id="panel-nacional" class="tab-panel hidden">
+        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
+          <div class="max-w-2xl">
+            <span class="text-xs font-bold px-3 py-1 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30 uppercase">Cobertura en Toda la República</span>
+            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Capacitación In-Company Nacional (México)</h3>
+            <p class="text-slate-300 text-sm leading-relaxed mb-6">
+              Despliegue presencial del equipo técnico de JB Funnels en las instalaciones de tu empresa en cualquier ciudad de México. Un programa de transformación publicitaria diseñado para retailers, corporativos y agencias.
+            </p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Diagnóstico Previo</strong>
+                Auditoría exhaustiva de la cuenta antes de la llegada del equipo.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Adaptación a tu Vertical</strong>
+                Retail, Bienes Raíces, E-commerce, B2B o Educación.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">Blindaje Normativo</strong>
+                Protocolos estrictos de cero atribución personal para evitar bloqueos.
+              </div>
+              <div class="p-3 bg-midnight/60 rounded-lg border border-slate-800">
+                <strong class="text-purple-400 block mb-1">30 Días de Acompañamiento</strong>
+                Soporte y revisión post-evento para supervisar la ejecución.
+              </div>
+            </div>
+          </div>
+          <div class="w-full lg:w-80 bg-midnight/90 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
+            <div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Alcance</span>
+              <p class="text-base font-bold text-white mt-1">Cualquier ciudad de México</p>
+              <div class="border-t border-slate-800 my-4"></div>
+              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Cotización</span>
+              <p class="text-base font-bold text-white mt-1">Propuesta a Medida</p>
+            </div>
+            <a href="https://wa.me/5219992248818?text=Hola%20JB%20Funnels,%20deseo%20solicitar%20una%20cotización%20para%20capacitación%20In-Company%20en%20México" target="_blank"
+               class="mt-6 block text-center py-3 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-lg transition">
+              Solicitar Cotización Nacional
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SEGUNDO BLOQUE: SECCIÓN SUITE TECNOLÓGICA (AHORA DESPUÉS DE CAPACITACIONES) -->
+  <section id="suite" class="py-20 bg-slateDark/40 border-y border-slate-800/80">
     <div class="max-w-7xl mx-auto px-6">
       <div class="text-center max-w-3xl mx-auto mb-14">
-        <span class="text-xs font-bold uppercase tracking-widest text-electricSky">Suite Tecnológica</span>
-        <h2 class="text-3xl md:text-4xl font-extrabold mt-2 text-white">Herramientas de auditoría de campañas de META ADS JB Funnels</h2>
+        <span class="text-xs font-bold uppercase tracking-widest text-cempasuchil">Suite Tecnológica de Precisión</span>
+        <!-- TÍTULO ACTUALIZADO -->
+        <h2 class="text-3xl md:text-4xl font-extrabold mt-2 text-white">
+          Herramientas de Creación de Contenido Basado en Políticas de META y Auditoría de Campañas de META ADS JB Funnels
+        </h2>
         <p class="text-slate-400 mt-4 text-sm md:text-base">
           Sistemas asistentes de IA activados por Google Gemini validado por más de 350 participantes del taller 2025/2026.
         </p>
@@ -119,17 +395,17 @@
       <!-- LAS 3 HERRAMIENTAS INDIVIDUALES ($199 MXN C/U) -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
         <!-- Herramienta 1: Meta Architect -->
-        <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 flex flex-col justify-between transition hover:-translate-y-2 glow-cyan">
+        <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 flex flex-col justify-between transition hover:-translate-y-2 glow-orange">
           <div>
-            <span class="text-[11px] font-bold px-3 py-1 rounded bg-electricSky/10 text-electricSky border border-electricSky/20 uppercase tracking-wide">Motor Multimodal</span>
+            <span class="text-[11px] font-bold px-3 py-1 rounded bg-orange-500/10 text-cempasuchil border border-orange-500/20 uppercase tracking-wide">Motor Multimodal</span>
             <h3 class="text-2xl font-bold text-white mt-4 mb-3">Meta-Architect V3.0</h3>
             <p class="text-slate-400 text-sm leading-relaxed mb-6">
               Simulador de algoritmos de visión (SAM 3, DINOv3 y Lattice). Diagnostica saliencia en 200 ms, densidad OCR Rosetta y genera arquitecturas Power One Broad.
             </p>
             <ul class="text-xs space-y-2.5 text-slate-300 mb-6 border-t border-slate-800 pt-6">
-              <li class="flex items-center gap-2"><span class="text-electricSky">✓</span> Rediseño óptico desde fotos reales (JSON v2.5)</li>
-              <li class="flex items-center gap-2"><span class="text-electricSky">✓</span> Protocolo de Hashing: fbp/fbc en Texto Plano</li>
-              <li class="flex items-center gap-2"><span class="text-electricSky">✓</span> Reglas maestras: Fatigue Kill & Stop-Loss</li>
+              <li class="flex items-center gap-2"><span class="text-cempasuchil">✓</span> Rediseño óptico desde fotos reales (JSON v2.5)</li>
+              <li class="flex items-center gap-2"><span class="text-cempasuchil">✓</span> Protocolo de Hashing: fbp/fbc en Texto Plano</li>
+              <li class="flex items-center gap-2"><span class="text-cempasuchil">✓</span> Reglas maestras: Fatigue Kill & Stop-Loss</li>
             </ul>
           </div>
           
@@ -139,14 +415,14 @@
               <span class="text-xs font-semibold text-slate-400 uppercase ml-1">MXN</span>
             </div>
             <a href="https://wa.me/p/28475279168733489/5219992248818" target="_blank"
-               class="block text-center py-3 px-4 rounded-xl bg-algoCyan hover:bg-sky-600 text-white text-xs font-bold transition shadow glow-cyan">
+               class="block text-center py-3 px-4 rounded-xl bg-cempasuchil hover:bg-orange-600 text-white text-xs font-bold transition shadow glow-orange">
               Adquirir en WhatsApp &rarr;
             </a>
           </div>
         </div>
 
         <!-- Herramienta 2: Metrics Auditor -->
-        <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 flex flex-col justify-between transition hover:-translate-y-2 glow-cyan">
+        <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 flex flex-col justify-between transition hover:-translate-y-2 glow-amber">
           <div>
             <span class="text-[11px] font-bold px-3 py-1 rounded bg-amberConv/10 text-amber-400 border border-amberConv/20 uppercase tracking-wide">Auditoría Forense</span>
             <h3 class="text-2xl font-bold text-white mt-4 mb-3">Metrics Auditor Pro</h3>
@@ -166,24 +442,24 @@
               <span class="text-xs font-semibold text-slate-400 uppercase ml-1">MXN</span>
             </div>
             <a href="https://wa.me/p/28001774386145384/5219992248818" target="_blank"
-               class="block text-center py-3 px-4 rounded-xl bg-algoCyan hover:bg-sky-600 text-white text-xs font-bold transition shadow glow-cyan">
+               class="block text-center py-3 px-4 rounded-xl bg-cempasuchil hover:bg-orange-600 text-white text-xs font-bold transition shadow glow-orange">
               Adquirir en WhatsApp &rarr;
             </a>
           </div>
         </div>
 
         <!-- Herramienta 3: Organic Growth -->
-        <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 flex flex-col justify-between transition hover:-translate-y-2 glow-cyan">
+        <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 flex flex-col justify-between transition hover:-translate-y-2 glow-purple">
           <div>
-            <span class="text-[11px] font-bold px-3 py-1 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 uppercase tracking-wide">Neuroarquitectura</span>
+            <span class="text-[11px] font-bold px-3 py-1 rounded bg-mysticPurple/10 text-purple-400 border border-mysticPurple/20 uppercase tracking-wide">Neuroarquitectura</span>
             <h3 class="text-2xl font-bold text-white mt-4 mb-3">Organic Growth Architect</h3>
             <p class="text-slate-400 text-sm leading-relaxed mb-6">
               Ingeniería conductual y retención visual basada en el umbral de 13 ms. Transmutación multiplataforma y estratificación semiótica por NSE en LATAM.
             </p>
             <ul class="text-xs space-y-2.5 text-slate-300 mb-6 border-t border-slate-800 pt-6">
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> 3 Estructuras: Bucle Infinito y Vlog de Autoridad</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Ingesta de ADN de marca en lotes de 10 imágenes</li>
-              <li class="flex items-center gap-2"><span class="text-emerald-400">✓</span> Blindaje normativo contra Shadowbanning</li>
+              <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> 3 Estructuras: Bucle Infinito y Vlog de Autoridad</li>
+              <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Ingesta de ADN de marca en lotes de 10 imágenes</li>
+              <li class="flex items-center gap-2"><span class="text-purple-400">✓</span> Blindaje normativo contra Shadowbanning</li>
             </ul>
           </div>
 
@@ -193,18 +469,18 @@
               <span class="text-xs font-semibold text-slate-400 uppercase ml-1">MXN</span>
             </div>
             <a href="https://wa.me/p/28032250566384787/5219992248818" target="_blank"
-               class="block text-center py-3 px-4 rounded-xl bg-algoCyan hover:bg-sky-600 text-white text-xs font-bold transition shadow glow-cyan">
+               class="block text-center py-3 px-4 rounded-xl bg-cempasuchil hover:bg-orange-600 text-white text-xs font-bold transition shadow glow-orange">
               Adquirir en WhatsApp &rarr;
             </a>
           </div>
         </div>
       </div>
 
-      <!-- BANNER ESTRATÉGICO: HUB COMPLETO (UBICADO DEBAJO PARA ANCLAJE DE PRECIO $597 vs $499) -->
-      <div class="max-w-4xl mx-auto bg-gradient-to-r from-slateDark via-midnight to-slateDark border-2 border-amberConv/50 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl glow-amber">
+      <!-- BANNER ESTRATÉGICO: HUB COMPLETO -->
+      <div class="max-w-4xl mx-auto bg-gradient-to-r from-slateDark via-midnight to-slateDark border-2 border-cempasuchil/60 rounded-2xl p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-6 shadow-2xl glow-orange">
         <div>
           <div class="inline-flex items-center gap-2 mb-2">
-            <span class="bg-amberConv text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">OFERTA RECOMENDADA</span>
+            <span class="bg-cempasuchil text-white text-[11px] font-black px-3 py-1 rounded-full uppercase tracking-wider">OFERTA RECOMENDADA</span>
             <span class="text-xs text-slate-400 line-through font-semibold">$597 MXN individual</span>
           </div>
           <h3 class="text-2xl md:text-3xl font-black text-white mt-1">HUB Completo: Las 3 Herramientas de Auditoría</h3>
@@ -217,7 +493,7 @@
             $499 <span class="text-sm font-semibold text-slate-300">MXN</span>
           </div>
           <a href="https://wa.me/p/27202533292753578/5219992248818" target="_blank"
-             class="w-full md:w-auto text-center px-8 py-3.5 bg-amberConv hover:bg-amber-600 text-white font-bold rounded-xl text-xs uppercase tracking-wider transition shadow-lg">
+             class="w-full md:w-auto text-center px-8 py-3.5 bg-cempasuchil hover:bg-orange-600 text-white font-bold rounded-xl text-xs uppercase tracking-wider transition shadow-lg glow-orange">
             Adquirir Hub Completo en WhatsApp &rarr;
           </a>
         </div>
@@ -226,252 +502,43 @@
     </div>
   </section>
 
-  <!-- SECCIÓN: CAPACITACIONES (SELECTOR INTERACTIVO) -->
-  <section id="capacitaciones" class="py-20 max-w-7xl mx-auto px-6">
-    <div class="text-center max-w-3xl mx-auto mb-14">
-      <span class="text-xs font-bold uppercase tracking-widest text-electricSky">Transferencia de Know-How</span>
-      <h2 class="text-3xl md:text-4xl font-extrabold mt-2 text-white">Programas de Formación y Consultoría Quirúrgica</h2>
-      <p class="text-slate-400 mt-4 text-sm md:text-base">Capacitaciones de alto rendimiento diseñadas tanto para anunciantes individuales como para equipos completos y agencias.</p>
-    </div>
-
-    <div class="flex flex-wrap justify-center gap-3 mb-10" id="tabButtons">
-      <button onclick="setTab('taller1a1')" id="btn-taller1a1" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-algoCyan text-white shadow-lg">
-        🎯 Taller 1 a 1 Online (México y Habla Hispana)
-      </button>
-      <button onclick="setTab('equipos')" id="btn-equipos" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-slateDark text-slate-400 hover:text-white border border-slate-700">
-        🌐 Equipos de Trabajo (Online Internacional)
-      </button>
-      <button onclick="setTab('merida')" id="btn-merida" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-slateDark text-slate-400 hover:text-white border border-slate-700">
-        🏛️ Presencial Mérida, Yucatán
-      </button>
-      <button onclick="setTab('nacional')" id="btn-nacional" class="px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-slateDark text-slate-400 hover:text-white border border-slate-700">
-        🇲🇽 In-Company Nacional (México)
-      </button>
-    </div>
-
-    <!-- PANELES DE CONTENIDO -->
-    <div class="bg-slateDark border border-slate-700 rounded-2xl p-8 md:p-12">
-      <!-- Panel 1: 1 a 1 -->
-      <div id="panel-taller1a1" class="tab-panel">
-        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
-          <div class="max-w-2xl">
-            <span class="text-xs font-bold px-3 py-1 rounded bg-amberConv/20 text-amber-400 border border-amberConv/30 uppercase">Mentoría Privada Individual</span>
-            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Taller Personalizado 1 a 1 en Línea</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Intervención individual y directa sobre tus propias campañas. Cero teoría genérica: desarmamos tus conjuntos de anuncios, detectamos fugas de presupuesto y reconfiguramos tu infraestructura publicitaria en tiempo real; hemos llevado a principiantes de 0 a 100 y ayudado a agencias de marketing y nichos black.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Auditoría en Vivo</strong>
-                Diagnóstico de fugas TAM, LPLR y salud de CAPI 2.0 en tu cuenta.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Estructura Power ONE</strong>
-                Configuración CBO Broad eliminando segmentación obsoleta y creación de campañas alineadas a las políticas de META.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Prompts JSON a Medida</strong>
-                Especificaciones para rediseñar las fotos reales de tu producto o servicio.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Cero Tecnicismos Innecesarios</strong>
-                Adaptado tanto para directores como para dueños de negocio y principiantes.
-              </div>
-            </div>
-          </div>
-          <div class="w-full lg:w-80 bg-midnight/80 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
-            <div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Cobertura Geográfica</span>
-              <p class="text-base font-bold text-white mt-1">México y Países de Habla Hispana</p>
-              <div class="border-t border-slate-800 my-4"></div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Formato</span>
-              <p class="text-base font-bold text-white mt-1">Sesión en Vivo vía Google Meet</p>
-            </div>
-            <div class="mt-6 flex flex-col gap-3">
-              <a href="https://calendly.com/jbfunnelsmx/30min" target="_blank"
-                 class="block text-center py-3 bg-amberConv hover:bg-amber-600 text-white text-xs font-bold rounded-lg transition glow-amber">
-                Agendar Horario en Calendly
-              </a>
-              <a href="https://wa.me/p/28016004774760734/5219992248818" target="_blank"
-                 class="block text-center py-2.5 border border-slate-600 hover:border-electricSky text-slate-300 hover:text-white text-xs font-bold rounded-lg transition">
-                Ver Ficha en WhatsApp
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 2: Equipos Online -->
-      <div id="panel-equipos" class="tab-panel hidden">
-        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
-          <div class="max-w-2xl">
-            <span class="text-xs font-bold px-3 py-1 rounded bg-algoCyan/20 text-electricSky border border-algoCyan/30 uppercase">Estandarización Corporativa</span>
-            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Capacitación de Equipos Online (Latam / España)</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Alinea a todo tu departamento de marketing, tráfico y diseño bajo los estándares algorítmicos de 2026. Tu equipo dominará la coincidencia vectorial, la neuroarquitectura de retención y la prevención del solapamiento de subastas.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Módulo 1: La Matriz de Meta</strong>
-                Vector del usuario, Semantics ID y prevención de Auction Overlap.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Módulo 2: Visión y OCR</strong>
-                ViASNet (atención en 500 ms) y validación de políticas con Rosetta OCR.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Módulo 3: Suites Propietarias</strong>
-                Adopción de Meta Architect y Metrics Auditor en el flujo diario.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-electricSky block mb-1">Módulo 4: Telemetría IAB</strong>
-                Preservación de Core Web Vitals (LCP < 2.2s) e infraestructura CAPI.
-              </div>
-            </div>
-          </div>
-          <div class="w-full lg:w-80 bg-midnight/80 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
-            <div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Audiencia Objetivo</span>
-              <p class="text-base font-bold text-white mt-1">Equipos de 3 a 25 miembros</p>
-              <div class="border-t border-slate-800 my-4"></div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Incluye</span>
-              <p class="text-base font-bold text-white mt-1">Grabación HD + Material Técnico</p>
-            </div>
-            <a href="https://wa.me/p/28488819220721856/5219992248818" target="_blank"
-               class="mt-6 block text-center py-3 bg-algoCyan hover:bg-sky-600 text-white text-xs font-bold rounded-lg transition glow-cyan">
-              Consultar disponibilidad en tiempo real
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 3: Mérida -->
-      <div id="panel-merida" class="tab-panel hidden">
-        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
-          <div class="max-w-2xl">
-            <span class="text-xs font-bold px-3 py-1 rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 uppercase">Inmersión en Sitio</span>
-            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Workshop Presencial en Mérida, Yucatán</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Jornadas intensivas de consultoría y ejecución en vivo para empresarios, marcas y agencias de la península. Trabajamos directamente en tu ordenador configurando creativos, prompts de IA y analítica avanzada.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-emerald-400 block mb-1">Hands-On en Sala</strong>
-                Rediseño en vivo de fotografías crudas con IA fotográfica (lente 35mm).
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-emerald-400 block mb-1">Auditoría Clínica de Cuentas</strong>
-                Despiece de campañas de los participantes sin guardarnos nada.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-emerald-400 block mb-1">Dinámica de Producción</strong>
-                Guiones de video corto con Bucle Infinito y cortes dinámicos.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-emerald-400 block mb-1">Acceso a Suites JB</strong>
-                Plantillas operativas y presets forenses oficiales.
-              </div>
-            </div>
-          </div>
-          <div class="w-full lg:w-80 bg-midnight/80 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
-            <div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Ubicación Operativa</span>
-              <p class="text-base font-bold text-white mt-1">Mérida, Yucatán (Sede o Empresa)</p>
-              <div class="border-t border-slate-800 my-4"></div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Cupo</span>
-              <p class="text-base font-bold text-white mt-1">Grupos Ultra Reducidos</p>
-            </div>
-            <a href="https://wa.me/5219992248818?text=Hola%20JB%20Funnels,%20deseo%20consultar%20disponibilidad%20en%20tiempo%20real%20para%20el%20workshop%20presencial%20en%20Mérida" target="_blank"
-               class="mt-6 block text-center py-3 bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-bold rounded-lg transition">
-              Consultar disponibilidad en tiempo real
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <!-- Panel 4: In-Company Nacional -->
-      <div id="panel-nacional" class="tab-panel hidden">
-        <div class="flex flex-col lg:flex-row justify-between gap-8 items-start">
-          <div class="max-w-2xl">
-            <span class="text-xs font-bold px-3 py-1 rounded bg-purple-500/20 text-purple-400 border border-purple-500/30 uppercase">Cobertura en Toda la República</span>
-            <h3 class="text-2xl md:text-3xl font-bold text-white mt-3 mb-4">Capacitación In-Company Nacional (México)</h3>
-            <p class="text-slate-300 text-sm leading-relaxed mb-6">
-              Despliegue presencial del equipo técnico de JB Funnels en las instalaciones de tu empresa en cualquier ciudad de México. Un programa de transformación publicitaria diseñado para retailers, corporativos y agencias.
-            </p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs text-slate-300 mb-6">
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-purple-400 block mb-1">Diagnóstico Previo</strong>
-                Auditoría exhaustiva de la cuenta antes de la llegada del equipo.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-purple-400 block mb-1">Adaptación a tu Vertical</strong>
-                Retail, Bienes Raíces, E-commerce, B2B o Educación.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-purple-400 block mb-1">Blindaje Normativo</strong>
-                Protocolos estrictos de cero atribución personal para evitar bloqueos.
-              </div>
-              <div class="p-3 bg-midnight/50 rounded-lg border border-slate-800">
-                <strong class="text-purple-400 block mb-1">30 Días de Acompañamiento</strong>
-                Soporte y revisión post-evento para supervisar la ejecución.
-              </div>
-            </div>
-          </div>
-          <div class="w-full lg:w-80 bg-midnight/80 p-6 rounded-xl border border-slate-700 flex flex-col justify-between">
-            <div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Alcance</span>
-              <p class="text-base font-bold text-white mt-1">Cualquier ciudad de México</p>
-              <div class="border-t border-slate-800 my-4"></div>
-              <span class="text-[11px] uppercase tracking-wider text-slate-400 font-semibold">Cotización</span>
-              <p class="text-base font-bold text-white mt-1">Propuesta a Medida</p>
-            </div>
-            <a href="https://wa.me/5219992248818?text=Hola%20JB%20Funnels,%20deseo%20solicitar%20una%20cotización%20para%20capacitación%20In-Company%20en%20México" target="_blank"
-               class="mt-6 block text-center py-3 bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold rounded-lg transition">
-              Solicitar Cotización Nacional
-            </a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
   <!-- CALCULADORA FORENSE INTERACTIVA -->
-  <section id="calculadora" class="py-20 bg-slateDark/30 border-t border-slate-800">
+  <section id="calculadora" class="py-20 bg-midnight border-t border-slate-800">
     <div class="max-w-4xl mx-auto px-6">
       <div class="text-center mb-12">
-        <span class="text-xs font-bold uppercase tracking-widest text-amberConv">Herramienta Forense Interactiva</span>
+        <span class="text-xs font-bold uppercase tracking-widest text-cempasuchil">Herramienta Forense Interactiva</span>
         <h2 class="text-3xl font-extrabold text-white mt-2">Simulador Forense de Métricas</h2>
         <p class="text-slate-400 text-sm mt-3">Calcula con precisión matemática el costo por clic y diagnostica cuellos de botella en la subasta según el protocolo Metrics Auditor Pro.</p>
       </div>
 
-      <div class="bg-slateDark border border-slate-700 rounded-2xl p-8 shadow-2xl">
+      <div class="bg-slateDark border border-slate-700/80 rounded-2xl p-8 shadow-2xl">
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           <div>
-            <label class="text-xs font-bold uppercase tracking-wider text-electricSky block mb-2">CPM ($ USD / Moneda)</label>
-            <input type="number" id="cpmVal" placeholder="Ej: 9.50" step="0.01" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-electricSky text-sm">
+            <label class="text-xs font-bold uppercase tracking-wider text-cempasuchil block mb-2">CPM ($ USD / Moneda)</label>
+            <input type="number" id="cpmVal" placeholder="Ej: 9.50" step="0.01" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cempasuchil text-sm">
           </div>
           <div>
-            <label class="text-xs font-bold uppercase tracking-wider text-electricSky block mb-2">CTR Enlace (%)</label>
-            <input type="number" id="ctrVal" placeholder="Ej: 1.50" step="0.01" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-electricSky text-sm">
+            <label class="text-xs font-bold uppercase tracking-wider text-cempasuchil block mb-2">CTR Enlace (%)</label>
+            <input type="number" id="ctrVal" placeholder="Ej: 1.50" step="0.01" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cempasuchil text-sm">
           </div>
           <div>
-            <label class="text-xs font-bold uppercase tracking-wider text-electricSky block mb-2">Hook Rate 3s (%)</label>
-            <input type="number" id="hookVal" placeholder="Ej: 35" step="1" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-electricSky text-sm">
+            <label class="text-xs font-bold uppercase tracking-wider text-cempasuchil block mb-2">Hook Rate 3s (%)</label>
+            <input type="number" id="hookVal" placeholder="Ej: 35" step="1" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cempasuchil text-sm">
           </div>
           <div>
-            <label class="text-xs font-bold uppercase tracking-wider text-electricSky block mb-2">Hold Rate 15s (%)</label>
-            <input type="number" id="holdVal" placeholder="Ej: 40" step="1" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-electricSky text-sm">
+            <label class="text-xs font-bold uppercase tracking-wider text-cempasuchil block mb-2">Hold Rate 15s (%)</label>
+            <input type="number" id="holdVal" placeholder="Ej: 40" step="1" class="w-full bg-midnight border border-slate-700 rounded-lg px-4 py-2.5 text-white focus:outline-none focus:border-cempasuchil text-sm">
           </div>
         </div>
 
-        <button onclick="diagnosticarMetricas()" class="w-full py-3.5 rounded-lg bg-algoCyan hover:bg-sky-600 font-bold text-white transition text-sm glow-cyan">
+        <button onclick="diagnosticarMetricas()" class="w-full py-3.5 rounded-lg bg-cempasuchil hover:bg-orange-600 font-bold text-white transition text-sm glow-orange">
           Ejecutar Diagnóstico Forense
         </button>
 
         <div id="resultadoDiagnostico" class="hidden mt-8 p-6 bg-midnight/90 border border-slate-700 rounded-xl">
           <div class="flex items-center justify-between mb-4 flex-wrap gap-2">
             <span id="badgeResultado" class="text-xs font-extrabold px-3 py-1 rounded"></span>
-            <span id="cpcCalculado" class="text-lg font-black text-electricSky"></span>
+            <span id="cpcCalculado" class="text-lg font-black text-cempasuchil"></span>
           </div>
           <p id="textoExplicativo" class="text-xs md:text-sm text-slate-300 leading-relaxed"></p>
         </div>
@@ -494,12 +561,12 @@
         <!-- Redes Sociales en Footer -->
         <div class="flex items-center space-x-4 mt-5">
           <a href="https://www.facebook.com/share/1FFRKCUr2s/" target="_blank" rel="noopener noreferrer" 
-             class="text-slate-400 hover:text-electricSky transition flex items-center gap-1.5 text-xs">
+             class="text-slate-400 hover:text-cempasuchil transition flex items-center gap-1.5 text-xs">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
             Facebook
           </a>
           <a href="https://www.instagram.com/jbfunnels?igsi=MjVib2Y3eHRuOHYx" target="_blank" rel="noopener noreferrer" 
-             class="text-slate-400 hover:text-electricSky transition flex items-center gap-1.5 text-xs">
+             class="text-slate-400 hover:text-cempasuchil transition flex items-center gap-1.5 text-xs">
             <svg class="w-4 h-4 fill-current" viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
             Instagram
           </a>
@@ -508,11 +575,11 @@
       </div>
 
       <div>
-        <h4 class="text-xs font-bold uppercase tracking-widest text-electricSky mb-4">Canales de Formación</h4>
+        <h4 class="text-xs font-bold uppercase tracking-widest text-cempasuchil mb-4">Canales de Formación</h4>
         <ul class="text-xs text-slate-400 space-y-2">
           <li>• Taller 1 a 1 Online (México & Latam)</li>
           <li>• Capacitación de Equipos Online</li>
-          <li>• Workshop Presencial en Mérida</li>
+          <li>• Programa Acelerador por Niveles</li>
           <li>• Consultoría In-Company Nacional</li>
         </ul>
       </div>
@@ -522,11 +589,11 @@
         <p class="text-xs text-slate-400 mb-4">Agenda tu espacio por Calendly o inicia una conversación directa en WhatsApp para asesorarte.</p>
         <div class="flex flex-col gap-2">
           <a href="https://calendly.com/jbfunnelsmx/30min" target="_blank"
-             class="inline-block text-center px-4 py-2 bg-slateDark border border-slate-700 hover:border-electricSky text-white rounded-lg text-xs font-semibold transition">
+             class="inline-block text-center px-4 py-2 bg-slateDark border border-slate-700 hover:border-cempasuchil text-white rounded-lg text-xs font-semibold transition">
             Agendar en Calendly
           </a>
           <a href="https://wa.me/5219992248818?text=Hola%20JB%20Funnels,%20deseo%20información%20sobre%20los%20servicios" target="_blank"
-             class="inline-block text-center px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg text-xs font-bold transition">
+             class="inline-block text-center px-4 py-2 bg-cempasuchil hover:bg-orange-600 text-white rounded-lg text-xs font-bold transition glow-orange">
             WhatsApp Directo (+52 1 999 224 8818)
           </a>
         </div>
@@ -541,7 +608,7 @@
       <div class="flex items-center gap-2">
         <span>PÁGINA CREADA POR JB FUNNELS,</span>
         <a href="https://wa.me/5219992248818?text=Hola%20JB%20Funnels,%20deseo%20cotizar%20una%20página%20web%20profesional" target="_blank"
-           class="px-3 py-1.5 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold transition flex items-center gap-1.5 shadow">
+           class="px-3 py-1.5 rounded-lg bg-cempasuchil hover:bg-orange-600 text-white font-bold transition flex items-center gap-1.5 shadow">
           <span class="w-2 h-2 rounded-full bg-white animate-pulse"></span>
           cotiza la tuya aquí
         </a>
@@ -549,7 +616,7 @@
     </div>
   </footer>
 
-  <!-- SCRIPTS FUNCIONALES -->
+  <!-- SCRIPTS FUNCIONALES Y ANIMACIÓN NOVIEMBRE -->
   <script>
     function setTab(tabName) {
       document.querySelectorAll('.tab-panel').forEach(p => p.classList.add('hidden'));
@@ -558,7 +625,7 @@
       });
       document.getElementById('panel-' + tabName).classList.remove('hidden');
       const activeBtn = document.getElementById('btn-' + tabName);
-      activeBtn.className = "px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-algoCyan text-white shadow-lg";
+      activeBtn.className = "px-5 py-3 rounded-xl text-xs md:text-sm font-bold transition bg-cempasuchil text-white shadow-lg glow-orange";
     }
 
     function diagnosticarMetricas() {
@@ -600,8 +667,8 @@
       }
     }
 
-    // Animación de Red de Algoritmos (Lienzo Canvas)
-    const canvas = document.getElementById('neuralCanvas');
+    // ANIMACIÓN DEL LIENZO: NOVIEMBRE CYBER-TECH (PARTÍCULAS CÁLIDAS Y SILUETAS VECTORIALES DE MURCIÉLAGOS)
+    const canvas = document.getElementById('novemberCanvas');
     const ctx = canvas.getContext('2d');
 
     function resizeCanvas() {
@@ -611,50 +678,96 @@
     window.addEventListener('resize', resizeCanvas);
     resizeCanvas();
 
-    const particles = [];
-    const particleCount = 45;
-
-    for (let i = 0; i < particleCount; i++) {
-      particles.push({
+    // Partículas de brasas / constelación ámbar
+    const embers = [];
+    const emberCount = 38;
+    for (let i = 0; i < emberCount; i++) {
+      embers.push({
         x: Math.random() * canvas.width,
         y: Math.random() * canvas.height,
-        vx: (Math.random() - 0.5) * 0.6,
-        vy: (Math.random() - 0.5) * 0.6,
-        radius: 1.8
+        vx: (Math.random() - 0.5) * 0.5,
+        vy: -0.2 - Math.random() * 0.5,
+        radius: Math.random() * 2 + 1,
+        alpha: Math.random() * 0.8 + 0.2
       });
     }
 
-    function animateNetwork() {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      for (let i = 0; i < particleCount; i++) {
-        let p = particles[i];
-        p.x += p.vx;
-        p.y += p.vy;
+    // Murciélagos vectoriales cruzando la pantalla
+    const bats = [];
+    const batCount = 4;
+    for (let i = 0; i < batCount; i++) {
+      bats.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * (canvas.height * 0.65),
+        speed: 1.5 + Math.random() * 1.5,
+        wingAngle: 0,
+        wingSpeed: 0.15 + Math.random() * 0.1,
+        size: 14 + Math.random() * 10
+      });
+    }
 
-        if (p.x < 0 || p.x > canvas.width) p.vx *= -1;
-        if (p.y < 0 || p.y > canvas.height) p.vy *= -1;
+    function drawBat(b) {
+      ctx.save();
+      ctx.translate(b.x, b.y);
+      ctx.fillStyle = "rgba(255, 136, 0, 0.45)";
+      
+      const wingFlap = Math.sin(b.wingAngle) * (b.size * 0.4);
+      
+      ctx.beginPath();
+      // Cuerpo central
+      ctx.ellipse(0, 0, b.size * 0.25, b.size * 0.45, 0, 0, Math.PI * 2);
+      // Ala izquierda
+      ctx.moveTo(-b.size * 0.2, -b.size * 0.1);
+      ctx.quadraticCurveTo(-b.size * 0.9, -b.size * 0.7 + wingFlap, -b.size * 1.3, -b.size * 0.1 + wingFlap);
+      ctx.quadraticCurveTo(-b.size * 0.7, b.size * 0.3 + wingFlap, -b.size * 0.2, b.size * 0.2);
+      // Ala derecha
+      ctx.moveTo(b.size * 0.2, -b.size * 0.1);
+      ctx.quadraticCurveTo(b.size * 0.9, -b.size * 0.7 + wingFlap, b.size * 1.3, -b.size * 0.1 + wingFlap);
+      ctx.quadraticCurveTo(b.size * 0.7, b.size * 0.3 + wingFlap, b.size * 0.2, b.size * 0.2);
+      ctx.fill();
+      ctx.restore();
+    }
+
+    function animateNovember() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+      // Dibujar y mover brasas cálidas
+      for (let i = 0; i < emberCount; i++) {
+        let e = embers[i];
+        e.x += e.vx;
+        e.y += e.vy;
+
+        if (e.y < -10) {
+          e.y = canvas.height + 10;
+          e.x = Math.random() * canvas.width;
+        }
+        if (e.x < 0 || e.x > canvas.width) e.vx *= -1;
 
         ctx.beginPath();
-        ctx.arc(p.x, p.y, p.radius, 0, Math.PI * 2);
-        ctx.fillStyle = '#38BDF8';
+        ctx.arc(e.x, e.y, e.radius, 0, Math.PI * 2);
+        ctx.fillStyle = `rgba(255, 107, 0, ${e.alpha})`;
+        ctx.shadowBlur = 10;
+        ctx.shadowColor = "#FF8800";
         ctx.fill();
-
-        for (let j = i + 1; j < particleCount; j++) {
-          let p2 = particles[j];
-          let dist = Math.hypot(p.x - p2.x, p.y - p2.y);
-          if (dist < 120) {
-            ctx.beginPath();
-            ctx.moveTo(p.x, p.y);
-            ctx.lineTo(p2.x, p2.y);
-            ctx.strokeStyle = `rgba(2, 132, 199, ${1 - dist / 120})`;
-            ctx.lineWidth = 0.5;
-            ctx.stroke();
-          }
-        }
+        ctx.shadowBlur = 0;
       }
-      requestAnimationFrame(animateNetwork);
+
+      // Dibujar y mover murciélagos
+      for (let i = 0; i < batCount; i++) {
+        let b = bats[i];
+        b.x += b.speed;
+        b.wingAngle += b.wingSpeed;
+
+        if (b.x > canvas.width + 50) {
+          b.x = -50;
+          b.y = Math.random() * (canvas.height * 0.65);
+        }
+        drawBat(b);
+      }
+
+      requestAnimationFrame(animateNovember);
     }
-    animateNetwork();
+    animateNovember();
   </script>
 </body>
 </html>
