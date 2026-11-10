@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CAPI Manual | JB Funnels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+
+  <!-- PANTALLA DE LOGIN (CONTROL DE ACCESO) -->
+  <div id="login-screen" class="fixed inset-0 bg-slate-950 flex items-center justify-center p-4 z-50">
+    <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
+      <div class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-1">JB FUNNELS</div>
+      <h1 class="text-2xl font-bold text-white mb-2">🚀 Consola CAPI Manual</h1>
+      <p class="text-slate-400 text-sm mb-6">Ingresa tu correo electrónico autorizado para desbloquear el sistema de envío de señales a Meta.</p>
+      
+      <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2">Correo de Acceso</label>
+      <input type="email" id="auth-email" placeholder="tucorreo@ejemplo.com" 
+        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-blue-500">
+      
+      <button onclick="verificarAcceso()" id="btn-login"
+        class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition">
+        Verificar y Entrar
+      </button>
+      <p id="login-error" class="text-red-400 text-xs mt-3 hidden text-center"></p>
+    </div>
+  </div>
+
+  <!-- CONSOLA PRINCIPAL -->
+  <div id="app-content" class="max-w-5xl mx-auto p-6 hidden">
+    <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-8 gap-4">
+      <div>
+        <div class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-1">JB FUNNELS • TELEMETRÍA META ADS</div>
+        <h1 class="text-2xl font-bold text-white flex items-center gap-2">
+          ⚡ Sistema Consolidador de Señales CAPI
+        </h1>
+        <p class="text-slate-400 text-sm">Inyección directa de conversiones a Meta Graph API con encriptación SHA-256 local.</p>
+      </div>
+      <div class="flex items-center gap-3">
+        <span id="user-badge" class="text-xs bg-slate-800 text-blue-400 px-3 py-1.5 rounded-full border border-slate-700 font-medium"></span>
+        <button onclick="cerrarSesion()" class="text-xs text-slate-400 hover:text-red-400 underline">Salir</button>
+      </div>
+    </header>
+
+    <!-- PASO 1: CONFIGURACIÓN PIXEL Y TOKEN + VIDEO -->
+    <div class="grid md:grid-cols-3 gap-6 mb-8">
+      <div class="md:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-lg font-semibold text-blue-400 mb-4">1. Credenciales de tu Cuenta de Meta</h2>
+        <div class="grid gap-4">
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">ID del Conjunto de Datos (Pixel ID)</label>
+            <input type="text" id="pixel-id" placeholder="Ej. 1362075489302512"
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Token de Acceso de la API de Conversiones</label>
+            <input type="password" id="access-token" placeholder="EAAXfJQUY1u0BR..."
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Código de Prueba (Test Event Code - Opcional)</label>
+            <input type="text" id="test-code" placeholder="Ej. TEST12345 (Déjalo vacío para envíos reales)"
+              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+          </div>
+          <button onclick="guardarCredenciales()" class="bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-2 px-4 rounded-lg text-sm font-medium w-fit transition">
+            💾 Guardar mis credenciales en este navegador
+          </button>
+        </div>
+      </div>
+
+      <!-- ESPACIO PARA TU VIDEO TUTORIAL -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <h3 class="text-sm font-semibold text-white mb-2">🎥 ¿Cómo obtener tu ID y Token?</h3>
+          <p class="text-xs text-slate-400 mb-4">Sigue esta guía paso a paso para extraer tu Pixel ID y generar tu Token en el Administrador de Eventos.</p>
+        </div>
+        <div class="aspect-video bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
+          <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Tutorial CAPI" frameborder="0" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+
+    <!-- PASO 2: ENVÍO INDIVIDUAL O MASIVO -->
+    <div class="grid md:grid-cols-2 gap-6 mb-8">
+      <!-- Envío Individual Rápido -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+        <h2 class="text-lg font-semibold text-emerald-400 mb-4">2A. Enviar Conversión Individual</h2>
+        <div class="space-y-3">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Evento</label>
+              <select id="single-event" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+                <option value="Purchase">Purchase (Compra)</option>
+                <option value="Lead">Lead (Cliente Potencial)</option>
+                <option value="Schedule">Schedule (Cita Agendada)</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Origen de la Acción</label>
+              <select id="single-source" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+                <option value="chat">Chat (WhatsApp / Messenger)</option>
+                <option value="system_generated">Sistema / CRM</option>
+                <option value="phone_call">Llamada Telefónica</option>
+                <option value="physical_store">Tienda Física</option>
+              </select>
+            </div>
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Correo del Cliente</label>
+            <input type="email" id="single-email" placeholder="cliente@correo.com" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+          </div>
+          <div>
+            <label class="block text-xs text-slate-400 mb-1">Teléfono con código de país (ej. 529981234567)</label>
+            <input type="text" id="single-phone" placeholder="529981234567" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+          </div>
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Valor de Venta</label>
+              <input type="number" id="single-value" placeholder="1500" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Moneda</label>
+              <select id="single-currency" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+                <option value="MXN">MXN</option>
+                <option value="USD">USD</option>
+                <option value="COP">COP</option>
+                <option value="EUR">EUR</option>
+              </select>
+            </div>
+          </div>
+          <button onclick="enviarIndividual()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg text-sm transition mt-2">
+            🚀 Disparar Señal a Meta
+          </button>
+        </div>
+      </div>
+
+      <!-- Envío Masivo (Pegar desde Excel / Google Sheets) -->
+      <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
+        <div>
+          <h2 class="text-lg font-semibold text-purple-400 mb-2">2B. Envío por Lote (Copiar y Pegar)</h2>
+          <p class="text-xs text-slate-400 mb-3">
+            Pega tus filas separadas por coma o copiadas directo de Excel/Sheets:<br>
+            <code class="text-purple-300">email, telefono, valor, moneda</code> (una conversión por línea).
+          </p>
+          <textarea id="batch-input" rows="6" placeholder="juan@gmail.com, 529981112233, 1200, MXN&#10;maria@hotmail.com, 525544332211, 850, MXN"
+            class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs font-mono text-slate-200"></textarea>
+        </div>
+        <button onclick="procesarLote()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2.5 rounded-lg text-sm transition mt-3">
+          📦 Procesar y Enviar Lote Completo
+        </button>
+      </div>
+    </div>
+
+    <!-- CONSOLA DE RESPUESTA DE META -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
+      <div class="flex justify-between items-center mb-3">
+        <h3 class="text-sm font-semibold text-slate-300">📡 Registro de Telemetría (Respuestas de Meta Graph API)</h3>
+        <button onclick="document.getElementById('log-output').innerHTML = ''" class="text-xs text-slate-500 hover:text-slate-300">Limpiar registro</button>
+      </div>
+      <div id="log-output" class="bg-slate-950 border border-slate-800 rounded-lg p-4 h-48 overflow-y-auto font-mono text-xs space-y-2 text-slate-400">
+        <div>Esperando envíos...</div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // PEGA AQUÍ ENTRE LAS COMILLAS LA URL TERMINADA EN /exec DE TU GOOGLE APPS SCRIPT
+    const AUTH_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtfJ-hiCxA6IsQymZoZpAZaui_9IMxOTIOU8BNIUZ8ik9wazXFk5lybd-zA6LjrMmwiQ/exec"; 
+
+    window.onload = () => {
+      const savedEmail = sessionStorage.getItem("capi_auth_email");
+      const savedCliente = sessionStorage.getItem("capi_auth_cliente");
+      if (savedEmail) mostrarConsola(savedEmail, savedCliente);
+      
+      document.getElementById("pixel-id").value = localStorage.getItem("capi_pixel_id") || "";
+      document.getElementById("access-token").value = localStorage.getItem("capi_access_token") || "";
+    };
+
+    async function verificarAcceso() {
+      const email = document.getElementById("auth-email").value.trim().toLowerCase();
+      const errorEl = document.getElementById("login-error");
+      const btn = document.getElementById("btn-login");
+
+      if (!email || !email.includes("@")) {
+        errorEl.textContent = "Ingresa un correo electrónico válido.";
+        errorEl.classList.remove("hidden");
+        return;
+      }
+
+      btn.textContent = "Validando acceso en servidor...";
+      btn.disabled = true;
+      errorEl.classList.add("hidden");
+
+      try {
+        let nombreCliente = email;
+        if (AUTH_SCRIPT_URL && AUTH_SCRIPT_URL !== "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
+          const res = await fetch(`${AUTH_SCRIPT_URL}?email=${encodeURIComponent(email)}`);
+          const data = await res.json();
+          if (!data.autorizado) {
+            throw new Error("Acceso denegado: Este correo no se encuentra ACTIVO en el sistema.");
+          }
+          if (data.cliente) nombreCliente = `${data.cliente} (${email})`;
+        }
+        sessionStorage.setItem("capi_auth_email", email);
+        sessionStorage.setItem("capi_auth_cliente", nombreCliente);
+        mostrarConsola(email, nombreCliente);
+      } catch (err) {
+        errorEl.textContent = err.message || "Error al verificar acceso.";
+        errorEl.classList.remove("hidden");
+      } finally {
+        btn.textContent = "Verificar y Entrar";
+        btn.disabled = false;
+      }
+    }
+
+    function mostrarConsola(email, nombreCliente) {
+      document.getElementById("login-screen").classList.add("hidden");
+      document.getElementById("app-content").classList.remove("hidden");
+      document.getElementById("user-badge").textContent = "👤 " + (nombreCliente || email);
+    }
+
+    function cerrarSesion() {
+      sessionStorage.removeItem("capi_auth_email");
+      sessionStorage.removeItem("capi_auth_cliente");
+      location.reload();
+    }
+
+    function guardarCredenciales() {
+      const pixel = document.getElementById("pixel-id").value.trim();
+      const token = document.getElementById("access-token").value.trim();
+      localStorage.setItem("capi_pixel_id", pixel);
+      localStorage.setItem("capi_access_token", token);
+      agregarLog("💾 Credenciales guardadas localmente en tu navegador.", "text-blue-400");
+    }
+
+    async function sha256(texto) {
+      if (!texto) return null;
+      const msgBuffer = new TextEncoder().encode(texto);
+      const hashBuffer = await crypto.subtle.digest("SHA-256", msgBuffer);
+      const hashArray = Array.from(new Uint8Array(hashBuffer));
+      return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
+    }
+
+    async function dispararEventoMeta({ eventName, actionSource, email, phone, value, currency }) {
+      const pixelId = document.getElementById("pixel-id").value.trim();
+      const accessToken = document.getElementById("access-token").value.trim();
+      const testCode = document.getElementById("test-code").value.trim();
+
+      if (!pixelId || !accessToken) {
+        agregarLog("❌ Error: Configura primero tu Pixel ID y Access Token en el Paso 1.", "text-red-400");
+        return;
+      }
+
+      const emailClean = (email || "").trim().toLowerCase();
+      const phoneClean = (phone || "").replace(/\D/g, "");
+
+      if (!emailClean && !phoneClean) {
+        agregarLog("❌ Omitido: Se requiere al menos correo o teléfono.", "text-amber-400");
+        return;
+      }
+
+      const userData = {};
+      if (emailClean) userData.em = [await sha256(emailClean)];
+      if (phoneClean) userData.ph = [await sha256(phoneClean)];
+
+      const payload = {
+        data: [{
+          event_name: eventName || "Purchase",
+          event_time: Math.floor(Date.now() / 1000),
+          action_source: actionSource || "chat",
+          user_data: userData,
+          custom_data: {
+            currency: (currency || "MXN").toUpperCase(),
+            value: parseFloat(value) || 0
+          }
+        }]
+      };
+
+      if (testCode) payload.test_event_code = testCode;
+
+      try {
+        const url = `https://graph.facebook.com/v21.0/${pixelId}/events?access_token=${encodeURIComponent(accessToken)}`;
+        const response = await fetch(url, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify(payload)
+        });
+        const resJson = await response.json();
+
+        if (resJson.events_received && resJson.events_received >= 1) {
+          agregarLog(`✅ Enviado (${emailClean || phoneClean}) -> Eventos recibidos: ${resJson.events_received} | fbtrace_id: ${resJson.fbtrace_id}`, "text-emerald-400");
+        } else {
+          agregarLog(`❌ Error Meta (${emailClean || phoneClean}): ${JSON.stringify(resJson.error || resJson)}`, "text-red-400");
+        }
+      } catch (error) {
+        agregarLog(`❌ Error de Red: ${error.message}`, "text-red-400");
+      }
+    }
+
+    async function enviarIndividual() {
+      await dispararEventoMeta({
+        eventName: document.getElementById("single-event").value,
+        actionSource: document.getElementById("single-source").value,
+        email: document.getElementById("single-email").value,
+        phone: document.getElementById("single-phone").value,
+        value: document.getElementById("single-value").value,
+        currency: document.getElementById("single-currency").value
+      });
+    }
+
+    async function procesarLote() {
+      const raw = document.getElementById("batch-input").value.trim();
+      if (!raw) return;
+      const lineas = raw.split("\n");
+      agregarLog(`⏳ Procesando lote de ${lineas.length} fila(s)...`, "text-purple-400");
+
+      for (const linea of lineas) {
+        const partes = linea.split(/,|\t/);
+        if (partes.length >= 2) {
+          await dispararEventoMeta({
+            eventName: "Purchase",
+            actionSource: "system_generated",
+            email: partes[0],
+            phone: partes[1],
+            value: partes[2] || 0,
+            currency: partes[3] || "MXN"
+          });
+        }
+      }
+    }
+
+    function agregarLog(mensaje, colorClass = "text-slate-300") {
+      const log = document.getElementById("log-output");
+      const item = document.createElement("div");
+      item.className = colorClass;
+      item.textContent = `[${new Date().toLocaleTimeString()}] ${mensaje}`;
+      log.prepend(item);
+    }
+  </script>
+</body>
+</html>
