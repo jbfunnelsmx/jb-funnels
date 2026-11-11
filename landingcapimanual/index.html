@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Consola CAPI Manual | JB Funnels</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- ================================================================= -->
+  <!-- CÓDIGO BASE DEL PIXEL DE META (JB FUNNELS)                        -->
+  <!-- ================================================================= -->
+  <script>
+    // Si deseas usar otro Pixel distinto, solo cambia este número:
+    const META_PIXEL_ID = "1362075489302512";
+
+    !function(f,b,e,v,n,t,s)
+    {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)}(window, document,'script',
+    'https://connect.facebook.net/en_US/fbevents.js');
+    
+    fbq('init', META_PIXEL_ID);
+    fbq('track', 'PageView');
+  </script>
+  <noscript>
+    <img height="1" width="1" style="display:none" 
+         src="https://www.facebook.com/tr?id=1362075489302512&ev=PageView&noscript=1"/>
+  </noscript>
+  <!-- ================================================================= -->
+</head>
+<body class="bg-slate-950 text-slate-100 min-h-screen font-sans selection:bg-blue-500 selection:text-white">
+
+  <!-- BARRA SUPERIOR CON TU LOGO.PNG -->
+  <header class="border-b border-slate-800/80 bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
+    <div class="max-w-5xl mx-auto px-6 py-4 flex justify-between items-center">
+      <a href="https://www.jb-funnels.com" class="flex items-center gap-3">
+        <img src="/logo.png" onerror="this.src='../logo.png'" alt="JB Funnels Logo" class="h-10 w-auto object-contain">
+        <div class="hidden sm:block">
+          <span class="text-xs font-bold tracking-widest text-blue-400 block uppercase">JB FUNNELS</span>
+          <span class="text-[11px] text-slate-400 block">Ingeniería Publicitaria y Optimización Algorítmica</span>
+        </div>
+      </a>
+      <button onclick="abrirWhatsApp('Boton_Header')" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs sm:text-sm font-semibold px-4 py-2.5 rounded-lg transition shadow-lg shadow-emerald-600/20">
+        💬 Solicitar Acceso
+      </button>
+    </div>
+  </header>
+
+  <!-- SECCIÓN PRINCIPAL (HERO + VIDEO VSL) -->
+  <main class="max-w-4xl mx-auto px-6 pt-12 pb-20">
+    <div class="text-center mb-10">
+      <div class="inline-flex items-center gap-2 bg-blue-950/60 border border-blue-800/70 text-blue-300 text-xs font-medium px-3.5 py-1.5 rounded-full mb-5">
+        ⚡ Sin pagar mensualidades de CRMs • Señales directas a Meta Graph API
+      </div>
+      
+      <h1 class="text-3xl sm:text-5xl font-extrabold text-white tracking-tight leading-tight mb-5">
+        ¿Cierras ventas por WhatsApp, pero el algoritmo de Meta sigue <span class="text-blue-400">volando a ciegas</span>?
+      </h1>
+      
+      <p class="text-slate-300 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed">
+        Deja de entrenar tus campañas solo con curiosos que mandan mensaje. Inyecta tus ventas reales directamente al Pixel de Meta con <strong class="text-white">encriptación SHA-256 y alto puntaje EMQ</strong> desde nuestra consola web.
+      </p>
+    </div>
+
+    <!-- CONTENEDOR DEL VIDEO PRINCIPAL -->
+    <div class="bg-slate-900 border border-slate-800 p-2 sm:p-3 rounded-2xl shadow-2xl shadow-blue-950/30 mb-8">
+      <div class="aspect-video bg-slate-950 rounded-xl overflow-hidden relative flex items-center justify-center border border-slate-800">
+        <!-- Reemplaza dQw4w9WgXcQ por el código final de tu video de YouTube -->
+        <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Presentación CAPI Manual" frameborder="0" allowfullscreen></iframe>
+      </div>
+    </div>
+
+    <!-- BOTÓN PRINCIPAL DE CONVERSIÓN A WHATSAPP -->
+    <div class="text-center mb-16">
+      <button onclick="abrirWhatsApp('Boton_Principal_VSL')" class="w-full sm:w-auto bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-base sm:text-lg px-8 py-4 rounded-xl transition transform hover:-translate-y-0.5 shadow-xl shadow-emerald-500/25 inline-flex items-center justify-center gap-3">
+        <span>🚀 Quiero Adquirir la Promoción del CAPI Manual</span>
+      </button>
+      <p class="text-xs text-slate-400 mt-3">
+        Acceso inmediato vinculado a tu correo electrónico • Incluye video-guía de configuración en 2 minutos
+      </p>
+    </div>
+
+    <!-- 3 PILARES DE VALOR (POR QUÉ USAR CAPI MANUAL) -->
+    <div class="grid md:grid-cols-3 gap-6 mb-16">
+      <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl">
+        <div class="text-blue-400 text-xs font-mono uppercase tracking-wider mb-2">01 • Coincidencia Vectorial</div>
+        <h3 class="text-lg font-bold text-white mb-2">Entrena al algoritmo con compradores reales</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Cuando le devuelves a Meta el correo, teléfono, nombre y ciudad de quien sí te compró, el sistema deja de buscar "preguntadores" y busca perfiles idénticos a tus clientes.
+        </p>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl">
+        <div class="text-emerald-400 text-xs font-mono uppercase tracking-wider mb-2">02 • Cero Rentas de CRM</div>
+        <h3 class="text-lg font-bold text-white mb-2">Envío individual en 10s o masivo desde Excel</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Dispara una venta recién cerrada en WhatsApp desde tu celular o pega tu tabla completa de clientes de la semana sin pagar suscripciones caras de software.
+        </p>
+      </div>
+
+      <div class="bg-slate-900/90 border border-slate-800 p-6 rounded-2xl">
+        <div class="text-purple-400 text-xs font-mono uppercase tracking-wider mb-2">03 • Blindaje Técnico</div>
+        <h3 class="text-lg font-bold text-white mb-2">Candado Anti-Duplicados y SHA-256</h3>
+        <p class="text-sm text-slate-400 leading-relaxed">
+          Tu historial visual marca cada <code class="text-emerald-400">✅ Purchase ENVIADO</code> y bloquea envíos repetidos del mismo cliente en el día para nunca alterar tus métricas reales.
+        </p>
+      </div>
+    </div>
+
+    <!-- CÓMO FUNCIONA EN 3 PASOS -->
+    <div class="bg-slate-900 border border-slate-800 rounded-2xl p-8 mb-14">
+      <h2 class="text-xl sm:text-2xl font-bold text-white text-center mb-8">
+        ¿Cómo funciona por dentro tu Consola CAPI Manual?
+      </h2>
+      <div class="grid md:grid-cols-3 gap-6 text-sm">
+        <div class="flex flex-col gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 font-bold flex items-center justify-center">1</span>
+          <h4 class="font-semibold text-white">Pega tu Pixel ID y Token</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">Sigues nuestro video de 2 minutos dentro de la consola y guardas tus claves de forma segura en tu propio navegador.</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 font-bold flex items-center justify-center">2</span>
+          <h4 class="font-semibold text-white">Registra tus ventas cerradas</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">Capturas al cliente individualmente o copias y pegas tus filas desde nuestra plantilla descargable de Excel/Sheets.</p>
+        </div>
+        <div class="flex flex-col gap-2">
+          <span class="w-8 h-8 rounded-lg bg-blue-600/20 border border-blue-500/40 text-blue-400 font-bold flex items-center justify-center">3</span>
+          <h4 class="font-semibold text-white">Sincroniza con Meta Ads</h4>
+          <p class="text-slate-400 text-xs leading-relaxed">En un clic tus datos viajan encriptados a la Graph API de Meta para alimentar y optimizar tus campañas activas.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CIERRE CON LLAMADO A LA ACCIÓN -->
+    <div class="bg-gradient-to-br from-slate-900 to-blue-950/40 border border-blue-800/50 rounded-2xl p-8 text-center">
+      <h2 class="text-2xl font-bold text-white mb-3">¿Listo para darle señales reales de compra a tus campañas?</h2>
+      <p class="text-slate-300 text-sm max-w-xl mx-auto mb-6">
+        Envíanos un mensaje por WhatsApp para activar tu correo electrónico en el sistema y entregarte tu acceso a la consola hoy mismo.
+      </p>
+      <button onclick="abrirWhatsApp('Boton_Footer_Cierre')" class="bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-base px-8 py-4 rounded-xl transition shadow-xl shadow-emerald-500/20">
+        💬 Hablar por WhatsApp y Activar mi Acceso
+      </button>
+    </div>
+  </main>
+
+  <!-- PIE DE PÁGINA OFICIAL -->
+  <footer class="border-t border-slate-900 py-6 text-center text-xs text-slate-400 bg-slate-950">
+    Desarrollado por <strong class="text-white">JB FUNNELS</strong>, conoce más de nosotros en 
+    <a href="https://www.jb-funnels.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline font-medium">www.jb-funnels.com</a>
+  </footer>
+
+  <script>
+    // =========================================================================
+    // COLOCA AQUÍ TU NÚMERO DE WHATSAPP CON CÓDIGO DE PAÍS (EJ. 529981234567)
+    // =========================================================================
+    const TELEFONO_WHATSAPP = "529992248818";
+
+    function abrirWhatsApp(ubicacionBoton) {
+      // 1. Disparamos los eventos al Pixel de Meta antes de redirigir
+      if (typeof fbq === "function") {
+        fbq('track', 'Lead', {
+          content_name: 'CAPI Manual JB Funnels',
+          content_category: ubicacionBoton || 'Boton_WhatsApp'
+        });
+        fbq('track', 'Contact');
+      }
+
+      // 2. Abrimos WhatsApp con el mensaje personalizado
+      const mensaje = "Hola, ya he visto el video del CAPI Manual y me gustaría adquirir la promoción.";
+      const url = `https://wa.me/${TELEFONO_WHATSAPP}?text=${encodeURIComponent(mensaje)}`;
+      window.open(url, "_blank");
+    }
+  </script>
+</body>
+</html>
