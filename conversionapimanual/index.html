@@ -6,39 +6,64 @@
   <title>CAPI Manual | JB Funnels</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-<body class="bg-slate-950 text-slate-100 min-h-screen font-sans">
+<body class="bg-slate-950 text-slate-100 min-h-screen flex flex-col justify-between font-sans selection:bg-blue-500 selection:text-white">
 
-  <!-- PANTALLA DE LOGIN (CONTROL DE ACCESO) -->
-  <div id="login-screen" class="fixed inset-0 bg-slate-950 flex items-center justify-center p-4 z-50">
-    <div class="bg-slate-900 border border-slate-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
-      <div class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-1">JB FUNNELS</div>
+  <!-- PANTALLA DE LOGIN CON CASCADA DE COINCIDENCIA VECTORIAL -->
+  <div id="login-screen" class="fixed inset-0 bg-slate-950 flex flex-col items-center justify-between p-4 z-50 overflow-hidden">
+    <!-- Lienzo de animación de Vectores -->
+    <canvas id="vector-canvas" class="absolute inset-0 w-full h-full opacity-45 pointer-events-none"></canvas>
+
+    <!-- Espaciador superior con leyenda de vectores -->
+    <div class="relative z-10 mt-4 flex items-center gap-6 text-[11px] font-mono tracking-wider bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full backdrop-blur-md">
+      <span class="flex items-center gap-1.5 text-cyan-400">
+        <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> VECTOR HUMANO
+      </span>
+      <span class="text-slate-600">×</span>
+      <span class="flex items-center gap-1.5 text-indigo-400">
+        <span class="w-2 h-2 rounded-full bg-indigo-400 animate-pulse"></span> VECTOR ANUNCIO
+      </span>
+      <span class="text-slate-600">=</span>
+      <span class="flex items-center gap-1.5 text-emerald-400 font-semibold">
+        ⚡ COINCIDENCIA VECTORIAL
+      </span>
+    </div>
+
+    <!-- Tarjeta Central de Acceso -->
+    <div class="relative z-10 bg-slate-900/90 backdrop-blur-xl border border-slate-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
+      <div class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-1">JB FUNNELS • ALGORITHMIC TELEMETRY</div>
       <h1 class="text-2xl font-bold text-white mb-2">🚀 Consola CAPI Manual</h1>
-      <p class="text-slate-400 text-sm mb-6">Ingresa tu correo electrónico autorizado para desbloquear el sistema de envío de señales a Meta.</p>
+      <p class="text-slate-400 text-sm mb-6">Ingresa tu correo electrónico autorizado para sincronizar señales de retorno y coincidencia vectorial con Meta Ads.</p>
       
       <label class="block text-xs uppercase tracking-wider text-slate-400 mb-2">Correo de Acceso</label>
       <input type="email" id="auth-email" placeholder="tucorreo@ejemplo.com" 
-        class="w-full bg-slate-950 border border-slate-700 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-blue-500">
+        class="w-full bg-slate-950/90 border border-slate-700 rounded-lg px-4 py-3 text-white mb-4 focus:outline-none focus:border-blue-500">
       
       <button onclick="verificarAcceso()" id="btn-login"
-        class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition">
-        Verificar y Entrar
+        class="w-full bg-blue-600 hover:bg-blue-500 text-white font-semibold py-3 rounded-lg transition shadow-lg shadow-blue-600/20">
+        Sincronizar y Entrar
       </button>
       <p id="login-error" class="text-red-400 text-xs mt-3 hidden text-center"></p>
+    </div>
+
+    <!-- Pie de página en pantalla de Login -->
+    <div class="relative z-10 mb-2 text-center text-xs text-slate-400 bg-slate-950/70 px-4 py-1.5 rounded-full border border-slate-900 backdrop-blur-sm">
+      Desarrollado por <strong class="text-white">JB FUNNELS</strong>, conoce más de nosotros en 
+      <a href="https://www.jb-funnels.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline font-medium">www.jb-funnels.com</a>
     </div>
   </div>
 
   <!-- CONSOLA PRINCIPAL -->
-  <div id="app-content" class="max-w-5xl mx-auto p-6 hidden">
+  <div id="app-content" class="max-w-6xl w-full mx-auto p-6 hidden flex-grow">
     <header class="flex flex-col md:flex-row justify-between items-start md:items-center border-b border-slate-800 pb-6 mb-8 gap-4">
       <div>
-        <div class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-1">JB FUNNELS • TELEMETRÍA META ADS</div>
+        <div class="text-xs font-bold tracking-widest text-blue-500 uppercase mb-1">JB FUNNELS • INGENIERÍA PUBLICITARIA</div>
         <h1 class="text-2xl font-bold text-white flex items-center gap-2">
-          ⚡ Sistema Consolidador de Señales CAPI
+          ⚡ Sistema Consolidador de Señales CAPI Manual
         </h1>
-        <p class="text-slate-400 text-sm">Inyección directa de conversiones a Meta Graph API con encriptación SHA-256 local.</p>
+        <p class="text-slate-400 text-sm">Inyección directa de eventos a Meta Graph API con encriptación SHA-256 de alto puntaje EMQ.</p>
       </div>
       <div class="flex items-center gap-3">
-        <span id="user-badge" class="text-xs bg-slate-800 text-blue-400 px-3 py-1.5 rounded-full border border-slate-700 font-medium"></span>
+        <span id="user-badge" class="text-xs bg-slate-900 text-blue-400 px-3 py-1.5 rounded-full border border-slate-800 font-medium"></span>
         <button onclick="cerrarSesion()" class="text-xs text-slate-400 hover:text-red-400 underline">Salir</button>
       </div>
     </header>
@@ -48,19 +73,21 @@
       <div class="md:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6">
         <h2 class="text-lg font-semibold text-blue-400 mb-4">1. Credenciales de tu Cuenta de Meta</h2>
         <div class="grid gap-4">
-          <div>
-            <label class="block text-xs text-slate-400 mb-1">ID del Conjunto de Datos (Pixel ID)</label>
-            <input type="text" id="pixel-id" placeholder="Ej. 1362075489302512"
-              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+          <div class="grid md:grid-cols-2 gap-4">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">ID del Conjunto de Datos (Pixel ID)</label>
+              <input type="text" id="pixel-id" placeholder="Ej. 1362075489302512"
+                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Código de Prueba (Test Event Code - Opcional)</label>
+              <input type="text" id="test-code" placeholder="Ej. TEST12345 (Vacío para envíos reales)"
+                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+            </div>
           </div>
           <div>
             <label class="block text-xs text-slate-400 mb-1">Token de Acceso de la API de Conversiones</label>
             <input type="password" id="access-token" placeholder="EAAXfJQUY1u0BR..."
-              class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
-          </div>
-          <div>
-            <label class="block text-xs text-slate-400 mb-1">Código de Prueba (Test Event Code - Opcional)</label>
-            <input type="text" id="test-code" placeholder="Ej. TEST12345 (Déjalo vacío para envíos reales)"
               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
           </div>
           <button onclick="guardarCredenciales()" class="bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-2 px-4 rounded-lg text-sm font-medium w-fit transition">
@@ -72,8 +99,8 @@
       <!-- ESPACIO PARA TU VIDEO TUTORIAL -->
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
         <div>
-          <h3 class="text-sm font-semibold text-white mb-2">🎥 ¿Cómo obtener tu ID y Token?</h3>
-          <p class="text-xs text-slate-400 mb-4">Sigue esta guía paso a paso para extraer tu Pixel ID y generar tu Token en el Administrador de Eventos.</p>
+          <h3 class="text-sm font-semibold text-white mb-2">🎥 ¿Cómo extraer tu Pixel ID y Token?</h3>
+          <p class="text-xs text-slate-400 mb-4">Sigue esta guía paso a paso para obtener tus claves desde el Administrador de Eventos de Meta.</p>
         </div>
         <div class="aspect-video bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
           <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Tutorial CAPI" frameborder="0" allowfullscreen></iframe>
@@ -81,11 +108,14 @@
       </div>
     </div>
 
-    <!-- PASO 2: ENVÍO INDIVIDUAL O MASIVO -->
+    <!-- PASO 2: ENVÍO INDIVIDUAL O MASIVO CON CAMPOS EMQ COMPLETOS -->
     <div class="grid md:grid-cols-2 gap-6 mb-8">
-      <!-- Envío Individual Rápido -->
+      <!-- 2A. Envío Individual -->
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
-        <h2 class="text-lg font-semibold text-emerald-400 mb-4">2A. Enviar Conversión Individual</h2>
+        <div class="flex justify-between items-center mb-4">
+          <h2 class="text-lg font-semibold text-emerald-400">2A. Enviar Conversión Individual</h2>
+          <span class="text-[11px] bg-emerald-950 text-emerald-400 border border-emerald-800 px-2.5 py-0.5 rounded-full">Alta Coincidencia EMQ</span>
+        </div>
         <div class="space-y-3">
           <div class="grid grid-cols-2 gap-3">
             <div>
@@ -100,50 +130,75 @@
               <label class="block text-xs text-slate-400 mb-1">Origen de la Acción</label>
               <select id="single-source" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
                 <option value="chat">Chat (WhatsApp / Messenger)</option>
-                <option value="system_generated">Sistema / CRM</option>
+                <option value="system_generated">Sistema / CRM Manual</option>
                 <option value="phone_call">Llamada Telefónica</option>
                 <option value="physical_store">Tienda Física</option>
               </select>
             </div>
           </div>
-          <div>
-            <label class="block text-xs text-slate-400 mb-1">Correo del Cliente</label>
-            <input type="email" id="single-email" placeholder="cliente@correo.com" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-          </div>
-          <div>
-            <label class="block text-xs text-slate-400 mb-1">Teléfono con código de país (ej. 529981234567)</label>
-            <input type="text" id="single-phone" placeholder="529981234567" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-          </div>
+
           <div class="grid grid-cols-2 gap-3">
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Valor de Venta</label>
-              <input type="number" id="single-value" placeholder="1500" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+              <label class="block text-xs text-slate-400 mb-1">Correo del Cliente</label>
+              <input type="email" id="single-email" placeholder="cliente@correo.com" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Teléfono (con lada país, ej. 52...)</label>
+              <input type="text" id="single-phone" placeholder="529981234567" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-3 gap-3">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Nombre(s)</label>
+              <input type="text" id="single-fn" placeholder="Eduardo" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Apellido(s)</label>
+              <input type="text" id="single-ln" placeholder="German" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            </div>
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Ciudad</label>
+              <input type="text" id="single-ct" placeholder="Puebla" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Precio / Valor de Venta</label>
+              <input type="number" id="single-value" placeholder="749" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
             </div>
             <div>
               <label class="block text-xs text-slate-400 mb-1">Moneda</label>
               <select id="single-currency" class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm">
-                <option value="MXN">MXN</option>
-                <option value="USD">USD</option>
-                <option value="COP">COP</option>
-                <option value="EUR">EUR</option>
+                <option value="MXN">MXN (Peso Mexicano)</option>
+                <option value="USD">USD (Dólar)</option>
+                <option value="COP">COP (Peso Colombiano)</option>
+                <option value="EUR">EUR (Euro)</option>
               </select>
             </div>
           </div>
+
           <button onclick="enviarIndividual()" class="w-full bg-emerald-600 hover:bg-emerald-500 text-white font-semibold py-2.5 rounded-lg text-sm transition mt-2">
             🚀 Disparar Señal a Meta
           </button>
         </div>
       </div>
 
-      <!-- Envío Masivo (Pegar desde Excel / Google Sheets) -->
+      <!-- 2B. Envío Masivo por Lote -->
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 flex flex-col justify-between">
         <div>
-          <h2 class="text-lg font-semibold text-purple-400 mb-2">2B. Envío por Lote (Copiar y Pegar)</h2>
+          <div class="flex justify-between items-start gap-2 mb-2">
+            <h2 class="text-lg font-semibold text-purple-400">2B. Envío por Lote (Excel / Sheets)</h2>
+            <button onclick="descargarPlantillaCSV()" class="text-xs bg-slate-800 hover:bg-slate-700 text-purple-300 border border-slate-700 px-3 py-1 rounded-lg transition">
+              📥 Descargar Plantilla Excel
+            </button>
+          </div>
           <p class="text-xs text-slate-400 mb-3">
-            Pega tus filas separadas por coma o copiadas directo de Excel/Sheets:<br>
-            <code class="text-purple-300">email, telefono, valor, moneda</code> (una conversión por línea).
+            Copia y pega tus filas directamente desde tu hoja de cálculo o separadas por coma en este orden:<br>
+            <code class="text-purple-300">Email | Teléfono | Nombre | Apellido | Ciudad | Precio | Moneda</code>
           </p>
-          <textarea id="batch-input" rows="6" placeholder="juan@gmail.com, 529981112233, 1200, MXN&#10;maria@hotmail.com, 525544332211, 850, MXN"
+          <textarea id="batch-input" rows="7" placeholder="egermanv1973@gmail.com	522211798244	Eduardo	German	Puebla	749	MXN&#10;ech.novasem@gmail.com	524611154198	Edgar	Chavez	Celaya	749	MXN"
             class="w-full bg-slate-950 border border-slate-700 rounded-lg p-3 text-xs font-mono text-slate-200"></textarea>
         </div>
         <button onclick="procesarLote()" class="w-full bg-purple-600 hover:bg-purple-500 text-white font-semibold py-2.5 rounded-lg text-sm transition mt-3">
@@ -152,29 +207,133 @@
       </div>
     </div>
 
-    <!-- CONSOLA DE RESPUESTA DE META -->
+    <!-- PASO 3: TABLA DE CONTROL DE ENVÍOS (ESTILO HOJA DE CÁLCULO CON BLOQUEO ANTI-DUPLICADOS) -->
+    <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 mb-8">
+      <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
+        <div>
+          <h3 class="text-base font-semibold text-white flex items-center gap-2">
+            📊 Historial de Conversiones Enviadas (Candado Anti-Duplicados Activo)
+          </h3>
+          <p class="text-xs text-slate-400">El sistema bloquea automáticamente envíos repetidos del mismo cliente en el mismo día e inyecta un <code class="text-blue-400">event_id</code> único.</p>
+        </div>
+        <button onclick="limpiarHistorial()" class="text-xs text-slate-500 hover:text-red-400 underline">
+          Borrar historial local
+        </button>
+      </div>
+
+      <div class="overflow-x-auto border border-slate-800 rounded-lg">
+        <table class="w-full text-left border-collapse text-xs">
+          <thead>
+            <tr class="bg-slate-950 text-slate-400 border-b border-slate-800 uppercase">
+              <th class="py-2.5 px-3">Email</th>
+              <th class="py-2.5 px-3">Teléfono</th>
+              <th class="py-2.5 px-3">Nombre</th>
+              <th class="py-2.5 px-3">Apellido</th>
+              <th class="py-2.5 px-3">Ciudad</th>
+              <th class="py-2.5 px-3">Precio</th>
+              <th class="py-2.5 px-3">Fecha / Hora</th>
+              <th class="py-2.5 px-3">Resultado</th>
+            </tr>
+          </thead>
+          <tbody id="history-table-body" class="divide-y divide-slate-800 bg-slate-900/50">
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- CONSOLA DE RESPUESTA TÉCNICA DE META -->
     <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
       <div class="flex justify-between items-center mb-3">
-        <h3 class="text-sm font-semibold text-slate-300">📡 Registro de Telemetría (Respuestas de Meta Graph API)</h3>
+        <h3 class="text-sm font-semibold text-slate-300">📡 Registro Técnico de Telemetría (Meta Graph API)</h3>
         <button onclick="document.getElementById('log-output').innerHTML = ''" class="text-xs text-slate-500 hover:text-slate-300">Limpiar registro</button>
       </div>
-      <div id="log-output" class="bg-slate-950 border border-slate-800 rounded-lg p-4 h-48 overflow-y-auto font-mono text-xs space-y-2 text-slate-400">
+      <div id="log-output" class="bg-slate-950 border border-slate-800 rounded-lg p-4 h-40 overflow-y-auto font-mono text-xs space-y-2 text-slate-400">
         <div>Esperando envíos...</div>
       </div>
     </div>
   </div>
 
+  <!-- PIE DE PÁGINA OFICIAL -->
+  <footer class="border-t border-slate-900 py-5 text-center text-xs text-slate-400 bg-slate-950">
+    Desarrollado por <strong class="text-white">JB FUNNELS</strong>, conoce más de nosotros en 
+    <a href="https://www.jb-funnels.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline font-medium">www.jb-funnels.com</a>
+  </footer>
+
   <script>
-    // PEGA AQUÍ ENTRE LAS COMILLAS LA URL TERMINADA EN /exec DE TU GOOGLE APPS SCRIPT
+    // =========================================================================
+    // PEGA AQUÍ ENTRE LAS COMILLAS TU URL TERMINADA EN /exec DE APPS SCRIPT
+    // =========================================================================
     const AUTH_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtfJ-hiCxA6IsQymZoZpAZaui_9IMxOTIOU8BNIUZ8ik9wazXFk5lybd-zA6LjrMmwiQ/exec"; 
 
+    // 1. ANIMACIÓN DE CASCADA DE DATOS (VECTOR HUMANO vs VECTOR ANUNCIO)
+    let animacionActiva = true;
+    const canvas = document.getElementById("vector-canvas");
+    const ctx = canvas.getContext("2d");
+
+    function iniciarCascadaVectorial() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+
+      const tokensHumanos = ["USR_VEC", "SCROLL_STOP", "DWELL_4.2s", "INTENT_0.94", "HUM_ID", "CLICK_SIGNAL", "0.892", "0.951"];
+      const tokensAnuncio = ["AD_VEC", "EMB_META", "CAPI_SHA256", "HOOK_MATCH", "PIXEL_SYNC", "ROAS_OPT", "0.892", "0.951"];
+      const fontSize = 13;
+      const columns = Math.floor(canvas.width / 95);
+      const drops = Array.from({ length: columns }, () => Math.random() * -50);
+
+      function dibujar() {
+        if (!animacionActiva) return;
+        ctx.fillStyle = "rgba(2, 6, 23, 0.14)";
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        ctx.font = `${fontSize}px monospace`;
+
+        for (let i = 0; i < drops.length; i++) {
+          const x = i * 95 + 12;
+          const y = drops[i] * (fontSize + 6);
+          const esVectorHumano = i % 2 === 0;
+
+          // Probabilidad de que el Vector Humano se detenga ante el Vector Anuncio
+          const hayCoincidencia = Math.random() > 0.965;
+
+          if (hayCoincidencia) {
+            ctx.fillStyle = "#10b981"; // Verde esmeralda brillante
+            ctx.fillText("⚡ [MATCH_VEC]", x, y);
+          } else if (esVectorHumano) {
+            ctx.fillStyle = "#06b6d4"; // Cian: Vector Humano
+            const token = tokensHumanos[Math.floor(Math.random() * tokensHumanos.length)];
+            ctx.fillText(token, x, y);
+          } else {
+            ctx.fillStyle = "#6366f1"; // Índigo: Vector Anuncio
+            const token = tokensAnuncio[Math.floor(Math.random() * tokensAnuncio.length)];
+            ctx.fillText(token, x, y);
+          }
+
+          if (y > canvas.height && Math.random() > 0.975) {
+            drops[i] = 0;
+          }
+          drops[i] += 0.35;
+        }
+        requestAnimationFrame(dibujar);
+      }
+      dibujar();
+    }
+
+    window.addEventListener("resize", () => {
+      if (animacionActiva) {
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+      }
+    });
+
+    // 2. INICIALIZACIÓN Y SESIÓN
     window.onload = () => {
+      iniciarCascadaVectorial();
       const savedEmail = sessionStorage.getItem("capi_auth_email");
       const savedCliente = sessionStorage.getItem("capi_auth_cliente");
       if (savedEmail) mostrarConsola(savedEmail, savedCliente);
       
       document.getElementById("pixel-id").value = localStorage.getItem("capi_pixel_id") || "";
       document.getElementById("access-token").value = localStorage.getItem("capi_access_token") || "";
+      renderizarTablaHistorial();
     };
 
     async function verificarAcceso() {
@@ -209,12 +368,13 @@
         errorEl.textContent = err.message || "Error al verificar acceso.";
         errorEl.classList.remove("hidden");
       } finally {
-        btn.textContent = "Verificar y Entrar";
+        btn.textContent = "Sincronizar y Entrar";
         btn.disabled = false;
       }
     }
 
     function mostrarConsola(email, nombreCliente) {
+      animacionActiva = false; // Detiene la animación para ahorrar recursos
       document.getElementById("login-screen").classList.add("hidden");
       document.getElementById("app-content").classList.remove("hidden");
       document.getElementById("user-badge").textContent = "👤 " + (nombreCliente || email);
@@ -234,6 +394,16 @@
       agregarLog("💾 Credenciales guardadas localmente en tu navegador.", "text-blue-400");
     }
 
+    // 3. NORMALIZACIÓN Y ENCRIPTACIÓN SHA-256 PARA ALTO EMQ
+    function limpiarTextoMeta(texto, quitarEspacios = false) {
+      if (!texto) return "";
+      let limpio = texto.toString().trim().toLowerCase()
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita acentos (ej. México -> mexico)
+        .replace(/[^a-z0-9\s]/g, "");
+      if (quitarEspacios) limpio = limpio.replace(/\s+/g, "");
+      return limpio;
+    }
+
     async function sha256(texto) {
       if (!texto) return null;
       const msgBuffer = new TextEncoder().encode(texto);
@@ -242,7 +412,54 @@
       return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     }
 
-    async function dispararEventoMeta({ eventName, actionSource, email, phone, value, currency }) {
+    // 4. HISTORIAL VISUAL Y CANDADO ANTI-DUPLICADOS
+    function obtenerHistorial() {
+      try {
+        return JSON.parse(localStorage.getItem("capi_historial_envios") || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function guardarEnHistorial(registro) {
+      const historial = obtenerHistorial();
+      historial.unshift(registro);
+      localStorage.setItem("capi_historial_envios", JSON.stringify(historial.slice(0, 200)));
+      renderizarTablaHistorial();
+    }
+
+    function renderizarTablaHistorial() {
+      const tbody = document.getElementById("history-table-body");
+      const historial = obtenerHistorial();
+
+      if (historial.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-500">Aún no hay conversiones registradas en este navegador.</td></tr>`;
+        return;
+      }
+
+      tbody.innerHTML = historial.map(item => `
+        <tr class="hover:bg-slate-800/40 transition">
+          <td class="py-2 px-3 font-mono text-slate-200">${item.email || "-"}</td>
+          <td class="py-2 px-3 font-mono text-slate-300">${item.phone || "-"}</td>
+          <td class="py-2 px-3 text-slate-200">${item.fn || "-"}</td>
+          <td class="py-2 px-3 text-slate-200">${item.ln || "-"}</td>
+          <td class="py-2 px-3 text-slate-300">${item.ct || "-"}</td>
+          <td class="py-2 px-3 font-semibold text-emerald-400">${item.value} ${item.currency}</td>
+          <td class="py-2 px-3 text-slate-400">${item.fechaHora}</td>
+          <td class="py-2 px-3 font-semibold text-emerald-400">✅ ${item.eventName} ENVIADO</td>
+        </tr>
+      `).join("");
+    }
+
+    function limpiarHistorial() {
+      if (confirm("¿Seguro que deseas borrar la tabla de historial local?")) {
+        localStorage.removeItem("capi_historial_envios");
+        renderizarTablaHistorial();
+      }
+    }
+
+    // 5. ENVÍO A META GRAPH API CON DEDUPLICACIÓN
+    async function dispararEventoMeta({ eventName, actionSource, email, phone, fn, ln, ct, value, currency }) {
       const pixelId = document.getElementById("pixel-id").value.trim();
       const accessToken = document.getElementById("access-token").value.trim();
       const testCode = document.getElementById("test-code").value.trim();
@@ -254,25 +471,46 @@
 
       const emailClean = (email || "").trim().toLowerCase();
       const phoneClean = (phone || "").replace(/\D/g, "");
+      const fnClean = limpiarTextoMeta(fn, false);
+      const lnClean = limpiarTextoMeta(ln, false);
+      const ctClean = limpiarTextoMeta(ct, true); // Meta pide ciudades sin espacios en minúsculas
+      const currencyClean = (currency || "MXN").trim().toUpperCase();
+      const numericValue = parseFloat(value) || 0;
+      const evName = eventName || "Purchase";
 
       if (!emailClean && !phoneClean) {
-        agregarLog("❌ Omitido: Se requiere al menos correo o teléfono.", "text-amber-400");
+        agregarLog("❌ Omitido: Se requiere al menos correo o teléfono del cliente.", "text-amber-400");
+        return;
+      }
+
+      // Candado anti-duplicados del mismo día
+      const hoy = new Date().toISOString().slice(0, 10);
+      const llaveUnica = `${evName}_${emailClean || phoneClean}_${hoy}`;
+      const historial = obtenerHistorial();
+      if (historial.some(h => h.llaveUnica === llaveUnica)) {
+        agregarLog(`⚠️ Bloqueado por Duplicado: ${emailClean || phoneClean} ya tiene un "${evName} ENVIADO" el día de hoy.`, "text-amber-400");
         return;
       }
 
       const userData = {};
       if (emailClean) userData.em = [await sha256(emailClean)];
       if (phoneClean) userData.ph = [await sha256(phoneClean)];
+      if (fnClean) userData.fn = [await sha256(fnClean)];
+      if (lnClean) userData.ln = [await sha256(lnClean)];
+      if (ctClean) userData.ct = [await sha256(ctClean)];
+
+      const eventId = await sha256(llaveUnica);
 
       const payload = {
         data: [{
-          event_name: eventName || "Purchase",
+          event_name: evName,
           event_time: Math.floor(Date.now() / 1000),
+          event_id: eventId.substring(0, 32),
           action_source: actionSource || "chat",
           user_data: userData,
           custom_data: {
-            currency: (currency || "MXN").toUpperCase(),
-            value: parseFloat(value) || 0
+            currency: currencyClean,
+            value: numericValue
           }
         }]
       };
@@ -289,7 +527,19 @@
         const resJson = await response.json();
 
         if (resJson.events_received && resJson.events_received >= 1) {
-          agregarLog(`✅ Enviado (${emailClean || phoneClean}) -> Eventos recibidos: ${resJson.events_received} | fbtrace_id: ${resJson.fbtrace_id}`, "text-emerald-400");
+          guardarEnHistorial({
+            llaveUnica,
+            eventName: evName,
+            email: emailClean,
+            phone: phoneClean,
+            fn: fn ? fn.trim() : "",
+            ln: ln ? ln.trim() : "",
+            ct: ct ? ct.trim() : "",
+            value: numericValue,
+            currency: currencyClean,
+            fechaHora: new Date().toLocaleString()
+          });
+          agregarLog(`✅ ${evName} ENVIADO (${emailClean || phoneClean}) | EMQ Campos: ${Object.keys(userData).length} | event_id: ${eventId.substring(0, 10)}...`, "text-emerald-400");
         } else {
           agregarLog(`❌ Error Meta (${emailClean || phoneClean}): ${JSON.stringify(resJson.error || resJson)}`, "text-red-400");
         }
@@ -298,12 +548,16 @@
       }
     }
 
+    // 6. BOTONES DE INTERFAZ Y DESCARGA DE PLANTILLA
     async function enviarIndividual() {
       await dispararEventoMeta({
         eventName: document.getElementById("single-event").value,
         actionSource: document.getElementById("single-source").value,
         email: document.getElementById("single-email").value,
         phone: document.getElementById("single-phone").value,
+        fn: document.getElementById("single-fn").value,
+        ln: document.getElementById("single-ln").value,
+        ct: document.getElementById("single-ct").value,
         value: document.getElementById("single-value").value,
         currency: document.getElementById("single-currency").value
       });
@@ -316,18 +570,35 @@
       agregarLog(`⏳ Procesando lote de ${lineas.length} fila(s)...`, "text-purple-400");
 
       for (const linea of lineas) {
-        const partes = linea.split(/,|\t/);
+        const partes = linea.split(/\t|,/);
+        // Ignorar fila si es el encabezado pegado por accidente
+        if (partes[0] && partes[0].toLowerCase().includes("email")) continue;
+
         if (partes.length >= 2) {
           await dispararEventoMeta({
             eventName: "Purchase",
             actionSource: "system_generated",
-            email: partes[0],
-            phone: partes[1],
-            value: partes[2] || 0,
-            currency: partes[3] || "MXN"
+            email: partes[0] || "",
+            phone: partes[1] || "",
+            fn: partes[2] || "",
+            ln: partes[3] || "",
+            ct: partes[4] || "",
+            value: partes[5] || 0,
+            currency: partes[6] || "MXN"
           });
         }
       }
+    }
+
+    function descargarPlantillaCSV() {
+      const contenidoCSV = "Email,Telefono,Nombre,Apellido,Ciudad,Precio,Moneda\negermanv1973@gmail.com,522211798244,Eduardo,German,Puebla,749,MXN\nech.novasem@gmail.com,524611154198,Edgar,Chavez,Celaya,749,MXN";
+      const blob = new Blob([contenidoCSV], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = "Plantilla_CAPI_Manual_JBFunnels.csv";
+      a.click();
+      URL.revokeObjectURL(url);
     }
 
     function agregarLog(mensaje, colorClass = "text-slate-300") {
