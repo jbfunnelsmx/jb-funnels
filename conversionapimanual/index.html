@@ -10,10 +10,8 @@
 
   <!-- PANTALLA DE LOGIN CON CASCADA DE COINCIDENCIA VECTORIAL -->
   <div id="login-screen" class="fixed inset-0 bg-slate-950 flex flex-col items-center justify-between p-4 z-50 overflow-hidden">
-    <!-- Lienzo de animación de Vectores -->
     <canvas id="vector-canvas" class="absolute inset-0 w-full h-full opacity-45 pointer-events-none"></canvas>
 
-    <!-- Espaciador superior con leyenda de vectores -->
     <div class="relative z-10 mt-4 flex items-center gap-6 text-[11px] font-mono tracking-wider bg-slate-900/80 border border-slate-800 px-4 py-1.5 rounded-full backdrop-blur-md">
       <span class="flex items-center gap-1.5 text-cyan-400">
         <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> VECTOR HUMANO
@@ -28,7 +26,6 @@
       </span>
     </div>
 
-    <!-- Tarjeta Central de Acceso -->
     <div class="relative z-10 bg-slate-900/90 backdrop-blur-xl border border-slate-800 p-8 rounded-2xl max-w-md w-full shadow-2xl">
       <div class="text-xs font-bold tracking-widest text-blue-400 uppercase mb-1">JB FUNNELS • ALGORITHMIC TELEMETRY</div>
       <h1 class="text-2xl font-bold text-white mb-2">🚀 Consola CAPI Manual</h1>
@@ -45,7 +42,6 @@
       <p id="login-error" class="text-red-400 text-xs mt-3 hidden text-center"></p>
     </div>
 
-    <!-- Pie de página en pantalla de Login -->
     <div class="relative z-10 mb-2 text-center text-xs text-slate-400 bg-slate-950/70 px-4 py-1.5 rounded-full border border-slate-900 backdrop-blur-sm">
       Desarrollado por <strong class="text-white">JB FUNNELS</strong>, conoce más de nosotros en 
       <a href="https://www.jb-funnels.com" target="_blank" rel="noopener noreferrer" class="text-blue-400 hover:text-blue-300 underline font-medium">www.jb-funnels.com</a>
@@ -62,37 +58,84 @@
         </h1>
         <p class="text-slate-400 text-sm">Inyección directa de eventos a Meta Graph API con encriptación SHA-256 de alto puntaje EMQ.</p>
       </div>
-      <div class="flex items-center gap-3">
-        <span id="user-badge" class="text-xs bg-slate-900 text-blue-400 px-3 py-1.5 rounded-full border border-slate-800 font-medium"></span>
-        <button onclick="cerrarSesion()" class="text-xs text-slate-400 hover:text-red-400 underline">Salir</button>
+      <div class="flex flex-wrap items-center gap-2">
+        <span id="plan-badge" class="text-[11px] bg-blue-950 text-blue-300 px-3 py-1.5 rounded-full border border-blue-800/70 font-semibold"></span>
+        <span id="user-badge" class="text-xs bg-slate-900 text-slate-200 px-3 py-1.5 rounded-full border border-slate-800 font-medium"></span>
+        <button onclick="cerrarSesion()" class="text-xs text-slate-400 hover:text-red-400 underline ml-1">Salir</button>
       </div>
     </header>
 
-    <!-- PASO 1: CONFIGURACIÓN PIXEL Y TOKEN + VIDEO -->
+    <!-- PASO 1: SELECTOR MULTICUENTA + CREDENCIALES + VIDEO -->
     <div class="grid md:grid-cols-3 gap-6 mb-8">
       <div class="md:col-span-2 bg-slate-900 border border-slate-800 rounded-xl p-6">
-        <h2 class="text-lg font-semibold text-blue-400 mb-4">1. Credenciales de tu Cuenta de Meta</h2>
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-5 pb-4 border-b border-slate-800">
+          <div>
+            <h2 class="text-lg font-semibold text-blue-400">1. Negocio Activo y Credenciales</h2>
+            <p class="text-xs text-slate-400">Cada negocio guarda su propio Pixel, Token e historial por separado.</p>
+          </div>
+          <div class="flex items-center gap-2">
+            <select id="selector-negocio" onchange="cambiarNegocioActivo(this.value)"
+              class="bg-slate-950 border border-blue-500/60 text-white text-sm font-medium rounded-lg px-3 py-2 focus:outline-none focus:border-blue-400">
+            </select>
+            <button id="btn-nuevo-negocio" onclick="mostrarFormNuevoNegocio()"
+              class="bg-blue-600 hover:bg-blue-500 text-white text-xs font-semibold px-3 py-2.5 rounded-lg transition whitespace-nowrap">
+              + Nuevo negocio
+            </button>
+          </div>
+        </div>
+
+        <!-- Panel desplegable para crear nuevo negocio -->
+        <div id="panel-nuevo-negocio" class="hidden mb-5 bg-slate-950 border border-blue-800/60 rounded-lg p-4">
+          <label class="block text-xs text-blue-300 font-medium mb-2">Nombre de la nueva cuenta o marca</label>
+          <div class="flex gap-2">
+            <input type="text" id="input-nuevo-negocio" placeholder="Ej. Betterware, Clínica Dental, Tienda MX..."
+              class="flex-grow bg-slate-900 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-blue-500">
+            <button onclick="crearNuevoNegocio()" class="bg-emerald-600 hover:bg-emerald-500 text-white text-xs font-semibold px-4 py-2 rounded-lg transition">
+              Crear
+            </button>
+            <button onclick="ocultarFormNuevoNegocio()" class="bg-slate-800 hover:bg-slate-700 text-slate-300 text-xs px-3 py-2 rounded-lg transition">
+              Cancelar
+            </button>
+          </div>
+        </div>
+
+        <!-- Formulario de credenciales del negocio seleccionado -->
         <div class="grid gap-4">
-          <div class="grid md:grid-cols-2 gap-4">
+          <div class="grid md:grid-cols-3 gap-4">
+            <div>
+              <label class="block text-xs text-slate-400 mb-1">Nombre del Negocio</label>
+              <input type="text" id="nombre-negocio" placeholder="Ej. JB Funnels"
+                class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
+            </div>
             <div>
               <label class="block text-xs text-slate-400 mb-1">ID del Conjunto de Datos (Pixel ID)</label>
               <input type="text" id="pixel-id" placeholder="Ej. 1362075489302512"
                 class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
             </div>
             <div>
-              <label class="block text-xs text-slate-400 mb-1">Código de Prueba (Test Event Code - Opcional)</label>
-              <input type="text" id="test-code" placeholder="Ej. TEST12345 (Vacío para envíos reales)"
+              <label class="block text-xs text-slate-400 mb-1">Código de Prueba (Opcional)</label>
+              <input type="text" id="test-code" placeholder="Ej. TEST12345"
                 class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
             </div>
           </div>
           <div>
-            <label class="block text-xs text-slate-400 mb-1">Token de Acceso de la API de Conversiones</label>
-            <input type="password" id="access-token" placeholder="EAAXfJQUY1u0BR..."
+            <div class="flex justify-between items-center mb-1">
+              <label class="block text-xs text-slate-400">Token de Acceso de la API de Conversiones</label>
+              <button type="button" onclick="alternarVisibilidadToken()" id="btn-ver-token" class="text-[11px] text-blue-400 hover:underline">
+                Mostrar token
+              </button>
+            </div>
+            <input type="password" id="access-token" placeholder="EAA..."
               class="w-full bg-slate-950 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white">
           </div>
-          <button onclick="guardarCredenciales()" class="bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-2 px-4 rounded-lg text-sm font-medium w-fit transition">
-            💾 Guardar mis credenciales en este navegador
-          </button>
+          <div class="flex flex-wrap items-center justify-between gap-3 pt-1">
+            <button onclick="guardarCredenciales()" class="bg-slate-800 hover:bg-slate-700 text-blue-400 border border-slate-700 py-2 px-4 rounded-lg text-sm font-medium transition">
+              💾 Guardar cambios de este negocio
+            </button>
+            <button id="btn-eliminar-negocio" onclick="eliminarNegocioActual()" class="text-xs text-slate-500 hover:text-red-400 underline">
+              Eliminar este negocio
+            </button>
+          </div>
         </div>
       </div>
 
@@ -103,12 +146,23 @@
           <p class="text-xs text-slate-400 mb-4">Sigue esta guía paso a paso para obtener tus claves desde el Administrador de Eventos de Meta.</p>
         </div>
         <div class="aspect-video bg-slate-950 rounded-lg border border-slate-800 flex items-center justify-center overflow-hidden">
+          <!-- Reemplaza dQw4w9WgXcQ con el código de tu video de YouTube -->
           <iframe class="w-full h-full" src="https://www.youtube.com/embed/dQw4w9WgXcQ" title="Tutorial CAPI" frameborder="0" allowfullscreen></iframe>
         </div>
       </div>
     </div>
 
-    <!-- PASO 2: ENVÍO INDIVIDUAL O MASIVO CON CAMPOS EMQ COMPLETOS -->
+    <!-- BARRA RECORDATORIA DEL NEGOCIO DESTINO -->
+    <div class="mb-6 bg-blue-950/30 border border-blue-900/60 rounded-xl px-4 py-3 flex flex-wrap items-center justify-between gap-2 text-xs">
+      <div class="flex items-center gap-2">
+        <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></span>
+        <span class="text-slate-300">Las señales que envíes ahora irán directo al negocio:</span>
+        <strong id="banner-negocio-nombre" class="text-white bg-slate-900 border border-slate-700 px-2.5 py-0.5 rounded-md"></strong>
+      </div>
+      <span id="banner-negocio-pixel" class="font-mono text-blue-300"></span>
+    </div>
+
+    <!-- PASO 2: ENVÍO INDIVIDUAL O MASIVO -->
     <div class="grid md:grid-cols-2 gap-6 mb-8">
       <!-- 2A. Envío Individual -->
       <div class="bg-slate-900 border border-slate-800 rounded-xl p-6">
@@ -207,17 +261,17 @@
       </div>
     </div>
 
-    <!-- PASO 3: TABLA DE CONTROL DE ENVÍOS (ESTILO HOJA DE CÁLCULO CON BLOQUEO ANTI-DUPLICADOS) -->
+    <!-- PASO 3: TABLA DE HISTORIAL AISLADA POR NEGOCIO -->
     <div class="bg-slate-900 border border-slate-800 rounded-xl p-6 mb-8">
       <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center mb-4 gap-2">
         <div>
           <h3 class="text-base font-semibold text-white flex items-center gap-2">
-            📊 Historial de Conversiones Enviadas (Candado Anti-Duplicados Activo)
+            📊 Historial de <span id="titulo-historial-negocio" class="text-blue-400"></span>
           </h3>
-          <p class="text-xs text-slate-400">El sistema bloquea automáticamente envíos repetidos del mismo cliente en el mismo día e inyecta un <code class="text-blue-400">event_id</code> único.</p>
+          <p class="text-xs text-slate-400">Historial y candado anti-duplicados exclusivos de este negocio (<code class="text-blue-400">event_id</code> único por cuenta).</p>
         </div>
         <button onclick="limpiarHistorial()" class="text-xs text-slate-500 hover:text-red-400 underline">
-          Borrar historial local
+          Borrar historial de este negocio
         </button>
       </div>
 
@@ -263,7 +317,13 @@
     // =========================================================================
     // PEGA AQUÍ ENTRE LAS COMILLAS TU URL TERMINADA EN /exec DE APPS SCRIPT
     // =========================================================================
-    const AUTH_SCRIPT_URL = "https://script.google.com/macros/s/AKfycbwtfJ-hiCxA6IsQymZoZpAZaui_9IMxOTIOU8BNIUZ8ik9wazXFk5lybd-zA6LjrMmwiQ/exec"; 
+    const AUTH_SCRIPT_URL = "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT";
+
+    // VARIABLES DE ESTADO DE SESIÓN Y MULTICUENTA
+    let emailActivo = "";
+    let planActivo = "AGENCIA"; // "INDIVIDUAL" o "AGENCIA"
+    let perfilesNegocio = [];
+    let perfilActivoId = "";
 
     // 1. ANIMACIÓN DE CASCADA DE DATOS (VECTOR HUMANO vs VECTOR ANUNCIO)
     let animacionActiva = true;
@@ -290,26 +350,20 @@
           const x = i * 95 + 12;
           const y = drops[i] * (fontSize + 6);
           const esVectorHumano = i % 2 === 0;
-
-          // Probabilidad de que el Vector Humano se detenga ante el Vector Anuncio
           const hayCoincidencia = Math.random() > 0.965;
 
           if (hayCoincidencia) {
-            ctx.fillStyle = "#10b981"; // Verde esmeralda brillante
+            ctx.fillStyle = "#10b981";
             ctx.fillText("⚡ [MATCH_VEC]", x, y);
           } else if (esVectorHumano) {
-            ctx.fillStyle = "#06b6d4"; // Cian: Vector Humano
-            const token = tokensHumanos[Math.floor(Math.random() * tokensHumanos.length)];
-            ctx.fillText(token, x, y);
+            ctx.fillStyle = "#06b6d4";
+            ctx.fillText(tokensHumanos[Math.floor(Math.random() * tokensHumanos.length)], x, y);
           } else {
-            ctx.fillStyle = "#6366f1"; // Índigo: Vector Anuncio
-            const token = tokensAnuncio[Math.floor(Math.random() * tokensAnuncio.length)];
-            ctx.fillText(token, x, y);
+            ctx.fillStyle = "#6366f1";
+            ctx.fillText(tokensAnuncio[Math.floor(Math.random() * tokensAnuncio.length)], x, y);
           }
 
-          if (y > canvas.height && Math.random() > 0.975) {
-            drops[i] = 0;
-          }
+          if (y > canvas.height && Math.random() > 0.975) drops[i] = 0;
           drops[i] += 0.35;
         }
         requestAnimationFrame(dibujar);
@@ -324,16 +378,13 @@
       }
     });
 
-    // 2. INICIALIZACIÓN Y SESIÓN
+    // 2. INICIALIZACIÓN Y CONTROL DE ACCESO
     window.onload = () => {
       iniciarCascadaVectorial();
       const savedEmail = sessionStorage.getItem("capi_auth_email");
       const savedCliente = sessionStorage.getItem("capi_auth_cliente");
-      if (savedEmail) mostrarConsola(savedEmail, savedCliente);
-      
-      document.getElementById("pixel-id").value = localStorage.getItem("capi_pixel_id") || "";
-      document.getElementById("access-token").value = localStorage.getItem("capi_access_token") || "";
-      renderizarTablaHistorial();
+      const savedPlan = sessionStorage.getItem("capi_auth_plan") || "AGENCIA";
+      if (savedEmail) mostrarConsola(savedEmail, savedCliente, savedPlan);
     };
 
     async function verificarAcceso() {
@@ -353,6 +404,8 @@
 
       try {
         let nombreCliente = email;
+        let planUsuario = "AGENCIA";
+
         if (AUTH_SCRIPT_URL && AUTH_SCRIPT_URL !== "PEGA_AQUI_TU_URL_DE_APPS_SCRIPT") {
           const res = await fetch(`${AUTH_SCRIPT_URL}?email=${encodeURIComponent(email)}`);
           const data = await res.json();
@@ -360,10 +413,15 @@
             throw new Error("Acceso denegado: Este correo no se encuentra ACTIVO en el sistema.");
           }
           if (data.cliente) nombreCliente = `${data.cliente} (${email})`;
+          if (data.plan && data.plan.toUpperCase() === "INDIVIDUAL") {
+            planUsuario = "INDIVIDUAL";
+          }
         }
+
         sessionStorage.setItem("capi_auth_email", email);
         sessionStorage.setItem("capi_auth_cliente", nombreCliente);
-        mostrarConsola(email, nombreCliente);
+        sessionStorage.setItem("capi_auth_plan", planUsuario);
+        mostrarConsola(email, nombreCliente, planUsuario);
       } catch (err) {
         errorEl.textContent = err.message || "Error al verificar acceso.";
         errorEl.classList.remove("hidden");
@@ -373,32 +431,212 @@
       }
     }
 
-    function mostrarConsola(email, nombreCliente) {
-      animacionActiva = false; // Detiene la animación para ahorrar recursos
+    function mostrarConsola(email, nombreCliente, plan) {
+      animacionActiva = false;
+      emailActivo = email;
+      planActivo = plan || "AGENCIA";
+
       document.getElementById("login-screen").classList.add("hidden");
       document.getElementById("app-content").classList.remove("hidden");
       document.getElementById("user-badge").textContent = "👤 " + (nombreCliente || email);
+
+      // Configurar visual según el Plan (INDIVIDUAL vs AGENCIA)
+      const planBadge = document.getElementById("plan-badge");
+      const btnNuevo = document.getElementById("btn-nuevo-negocio");
+      if (planActivo === "INDIVIDUAL") {
+        planBadge.textContent = "Plan Individual (1 Negocio)";
+        btnNuevo.classList.add("hidden");
+      } else {
+        planBadge.textContent = "⚡ Modo Agencia (Multicuenta)";
+        btnNuevo.classList.remove("hidden");
+      }
+
+      inicializarPerfilesUsuario();
     }
 
     function cerrarSesion() {
       sessionStorage.removeItem("capi_auth_email");
       sessionStorage.removeItem("capi_auth_cliente");
+      sessionStorage.removeItem("capi_auth_plan");
       location.reload();
     }
 
-    function guardarCredenciales() {
-      const pixel = document.getElementById("pixel-id").value.trim();
-      const token = document.getElementById("access-token").value.trim();
-      localStorage.setItem("capi_pixel_id", pixel);
-      localStorage.setItem("capi_access_token", token);
-      agregarLog("💾 Credenciales guardadas localmente en tu navegador.", "text-blue-400");
+    // 3. GESTIÓN DE BÓVEDA MULTICUENTA (AISLADA POR CORREO Y POR NEGOCIO)
+    function clavePerfiles() { return `capi_perfiles_${emailActivo}`; }
+    function claveActivo() { return `capi_perfil_activo_${emailActivo}`; }
+    function claveHistorial() { return `capi_historial_${emailActivo}_${perfilActivoId}`; }
+
+    function inicializarPerfilesUsuario() {
+      const guardados = localStorage.getItem(clavePerfiles());
+      if (guardados) {
+        perfilesNegocio = JSON.parse(guardados);
+      } else {
+        // Migración automática por si el usuario ya tenía un Pixel guardado en la versión anterior
+        const oldPixel = localStorage.getItem("capi_pixel_id") || "";
+        const oldToken = localStorage.getItem("capi_access_token") || "";
+        const primerId = "neg_" + Date.now();
+
+        perfilesNegocio = [{
+          id: primerId,
+          nombre: "Negocio Principal",
+          pixelId: oldPixel,
+          accessToken: oldToken,
+          testCode: ""
+        }];
+        guardarListaPerfiles();
+
+        // Migrar historial antiguo si existía
+        const oldHistorial = localStorage.getItem("capi_historial_envios");
+        if (oldHistorial) {
+          localStorage.setItem(`capi_historial_${emailActivo}_${primerId}`, oldHistorial);
+        }
+      }
+
+      const ultimoActivo = localStorage.getItem(claveActivo());
+      const existe = perfilesNegocio.some(p => p.id === ultimoActivo);
+      perfilActivoId = existe ? ultimoActivo : perfilesNegocio[0].id;
+
+      renderizarSelectorNegocios();
+      cargarFormularioNegocioActivo();
     }
 
-    // 3. NORMALIZACIÓN Y ENCRIPTACIÓN SHA-256 PARA ALTO EMQ
+    function guardarListaPerfiles() {
+      localStorage.setItem(clavePerfiles(), JSON.stringify(perfilesNegocio));
+    }
+
+    function obtenerPerfilActivo() {
+      return perfilesNegocio.find(p => p.id === perfilActivoId) || perfilesNegocio[0];
+    }
+
+    function renderizarSelectorNegocios() {
+      const select = document.getElementById("selector-negocio");
+      select.innerHTML = perfilesNegocio.map(p =>
+        `<option value="${p.id}" ${p.id === perfilActivoId ? "selected" : ""}>🏢 ${escaparHTML(p.nombre)}</option>`
+      ).join("");
+
+      const btnEliminar = document.getElementById("btn-eliminar-negocio");
+      if (perfilesNegocio.length <= 1) {
+        btnEliminar.classList.add("hidden");
+      } else {
+        btnEliminar.classList.remove("hidden");
+      }
+    }
+
+    function cargarFormularioNegocioActivo() {
+      const perfil = obtenerPerfilActivo();
+      if (!perfil) return;
+
+      document.getElementById("nombre-negocio").value = perfil.nombre || "";
+      document.getElementById("pixel-id").value = perfil.pixelId || "";
+      document.getElementById("access-token").value = perfil.accessToken || "";
+      document.getElementById("test-code").value = perfil.testCode || "";
+
+      // Actualizar banners visuales anti-error
+      document.getElementById("banner-negocio-nombre").textContent = perfil.nombre || "Sin nombre";
+      document.getElementById("banner-negocio-pixel").textContent = perfil.pixelId ? `Pixel ID: ${perfil.pixelId}` : "⚠️ Falta configurar Pixel ID";
+      document.getElementById("titulo-historial-negocio").textContent = perfil.nombre || "Negocio Actual";
+
+      renderizarTablaHistorial();
+    }
+
+    function cambiarNegocioActivo(nuevoId) {
+      perfilActivoId = nuevoId;
+      localStorage.setItem(claveActivo(), perfilActivoId);
+      cargarFormularioNegocioActivo();
+      const perfil = obtenerPerfilActivo();
+      agregarLog(`🔄 Cuenta cambiada a: ${perfil.nombre} (${perfil.pixelId || "Sin Pixel configurado"})`, "text-blue-400");
+    }
+
+    function mostrarFormNuevoNegocio() {
+      if (planActivo === "INDIVIDUAL" && perfilesNegocio.length >= 1) {
+        alert("Tu plan actual es INDIVIDUAL (1 negocio). Contacta a JB Funnels para activar el Modo Agencia Multicuenta.");
+        return;
+      }
+      document.getElementById("panel-nuevo-negocio").classList.remove("hidden");
+      document.getElementById("input-nuevo-negocio").focus();
+    }
+
+    function ocultarFormNuevoNegocio() {
+      document.getElementById("panel-nuevo-negocio").classList.add("hidden");
+      document.getElementById("input-nuevo-negocio").value = "";
+    }
+
+    function crearNuevoNegocio() {
+      const nombre = document.getElementById("input-nuevo-negocio").value.trim();
+      if (!nombre) return;
+
+      const nuevoPerfil = {
+        id: "neg_" + Date.now(),
+        nombre: nombre,
+        pixelId: "",
+        accessToken: "",
+        testCode: ""
+      };
+
+      perfilesNegocio.push(nuevoPerfil);
+      guardarListaPerfiles();
+      ocultarFormNuevoNegocio();
+
+      perfilActivoId = nuevoPerfil.id;
+      localStorage.setItem(claveActivo(), perfilActivoId);
+      renderizarSelectorNegocios();
+      cargarFormularioNegocioActivo();
+      agregarLog(`✨ Nuevo negocio creado: "${nombre}". Ahora pega su Pixel ID y Token y guarda los cambios.`, "text-emerald-400");
+    }
+
+    function guardarCredenciales() {
+      const perfil = obtenerPerfilActivo();
+      if (!perfil) return;
+
+      const nuevoNombre = document.getElementById("nombre-negocio").value.trim() || "Negocio sin nombre";
+      perfil.nombre = nuevoNombre;
+      perfil.pixelId = document.getElementById("pixel-id").value.trim();
+      perfil.accessToken = document.getElementById("access-token").value.trim();
+      perfil.testCode = document.getElementById("test-code").value.trim();
+
+      guardarListaPerfiles();
+      renderizarSelectorNegocios();
+      cargarFormularioNegocioActivo();
+      agregarLog(`💾 Credenciales guardadas correctamente para "${perfil.nombre}".`, "text-blue-400");
+    }
+
+    function eliminarNegocioActual() {
+      if (perfilesNegocio.length <= 1) return;
+      const perfil = obtenerPerfilActivo();
+      if (!confirm(`¿Seguro que deseas eliminar "${perfil.nombre}" y su historial local?`)) return;
+
+      localStorage.removeItem(claveHistorial());
+      perfilesNegocio = perfilesNegocio.filter(p => p.id !== perfil.id);
+      guardarListaPerfiles();
+
+      perfilActivoId = perfilesNegocio[0].id;
+      localStorage.setItem(claveActivo(), perfilActivoId);
+      renderizarSelectorNegocios();
+      cargarFormularioNegocioActivo();
+      agregarLog(`🗑️ Negocio "${perfil.nombre}" eliminado.`, "text-amber-400");
+    }
+
+    function alternarVisibilidadToken() {
+      const input = document.getElementById("access-token");
+      const btn = document.getElementById("btn-ver-token");
+      if (input.type === "password") {
+        input.type = "text";
+        btn.textContent = "Ocultar token";
+      } else {
+        input.type = "password";
+        btn.textContent = "Mostrar token";
+      }
+    }
+
+    // 4. NORMALIZACIÓN Y ENCRIPTACIÓN SHA-256 PARA ALTO EMQ
+    function escaparHTML(str) {
+      return (str || "").toString().replace(/[&<>"']/g, m => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[m]));
+    }
+
     function limpiarTextoMeta(texto, quitarEspacios = false) {
       if (!texto) return "";
       let limpio = texto.toString().trim().toLowerCase()
-        .normalize("NFD").replace(/[\u0300-\u036f]/g, "") // Quita acentos (ej. México -> mexico)
+        .normalize("NFD").replace(/[\u0300-\u036f]/g, "")
         .replace(/[^a-z0-9\s]/g, "");
       if (quitarEspacios) limpio = limpio.replace(/\s+/g, "");
       return limpio;
@@ -412,10 +650,10 @@
       return hashArray.map(b => b.toString(16).padStart(2, "0")).join("");
     }
 
-    // 4. HISTORIAL VISUAL Y CANDADO ANTI-DUPLICADOS
+    // 5. HISTORIAL VISUAL Y CANDADO ANTI-DUPLICADOS POR NEGOCIO
     function obtenerHistorial() {
       try {
-        return JSON.parse(localStorage.getItem("capi_historial_envios") || "[]");
+        return JSON.parse(localStorage.getItem(claveHistorial()) || "[]");
       } catch {
         return [];
       }
@@ -424,7 +662,7 @@
     function guardarEnHistorial(registro) {
       const historial = obtenerHistorial();
       historial.unshift(registro);
-      localStorage.setItem("capi_historial_envios", JSON.stringify(historial.slice(0, 200)));
+      localStorage.setItem(claveHistorial(), JSON.stringify(historial.slice(0, 200)));
       renderizarTablaHistorial();
     }
 
@@ -433,39 +671,41 @@
       const historial = obtenerHistorial();
 
       if (historial.length === 0) {
-        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-500">Aún no hay conversiones registradas en este navegador.</td></tr>`;
+        tbody.innerHTML = `<tr><td colspan="8" class="py-6 text-center text-slate-500">Aún no hay conversiones registradas para este negocio.</td></tr>`;
         return;
       }
 
       tbody.innerHTML = historial.map(item => `
         <tr class="hover:bg-slate-800/40 transition">
-          <td class="py-2 px-3 font-mono text-slate-200">${item.email || "-"}</td>
-          <td class="py-2 px-3 font-mono text-slate-300">${item.phone || "-"}</td>
-          <td class="py-2 px-3 text-slate-200">${item.fn || "-"}</td>
-          <td class="py-2 px-3 text-slate-200">${item.ln || "-"}</td>
-          <td class="py-2 px-3 text-slate-300">${item.ct || "-"}</td>
-          <td class="py-2 px-3 font-semibold text-emerald-400">${item.value} ${item.currency}</td>
-          <td class="py-2 px-3 text-slate-400">${item.fechaHora}</td>
-          <td class="py-2 px-3 font-semibold text-emerald-400">✅ ${item.eventName} ENVIADO</td>
+          <td class="py-2 px-3 font-mono text-slate-200">${escaparHTML(item.email) || "-"}</td>
+          <td class="py-2 px-3 font-mono text-slate-300">${escaparHTML(item.phone) || "-"}</td>
+          <td class="py-2 px-3 text-slate-200">${escaparHTML(item.fn) || "-"}</td>
+          <td class="py-2 px-3 text-slate-200">${escaparHTML(item.ln) || "-"}</td>
+          <td class="py-2 px-3 text-slate-300">${escaparHTML(item.ct) || "-"}</td>
+          <td class="py-2 px-3 font-semibold text-emerald-400">${escaparHTML(item.value)} ${escaparHTML(item.currency)}</td>
+          <td class="py-2 px-3 text-slate-400">${escaparHTML(item.fechaHora)}</td>
+          <td class="py-2 px-3 font-semibold text-emerald-400">✅ ${escaparHTML(item.eventName)} ENVIADO</td>
         </tr>
       `).join("");
     }
 
     function limpiarHistorial() {
-      if (confirm("¿Seguro que deseas borrar la tabla de historial local?")) {
-        localStorage.removeItem("capi_historial_envios");
+      const perfil = obtenerPerfilActivo();
+      if (confirm(`¿Seguro que deseas borrar el historial local de "${perfil.nombre}"?`)) {
+        localStorage.removeItem(claveHistorial());
         renderizarTablaHistorial();
       }
     }
 
-    // 5. ENVÍO A META GRAPH API CON DEDUPLICACIÓN
+    // 6. ENVÍO A META GRAPH API CON DEDUPLICACIÓN POR NEGOCIO
     async function dispararEventoMeta({ eventName, actionSource, email, phone, fn, ln, ct, value, currency }) {
+      const perfil = obtenerPerfilActivo();
       const pixelId = document.getElementById("pixel-id").value.trim();
       const accessToken = document.getElementById("access-token").value.trim();
       const testCode = document.getElementById("test-code").value.trim();
 
       if (!pixelId || !accessToken) {
-        agregarLog("❌ Error: Configura primero tu Pixel ID y Access Token en el Paso 1.", "text-red-400");
+        agregarLog(`❌ Error en "${perfil.nombre}": Configura primero su Pixel ID y Access Token en el Paso 1.`, "text-red-400");
         return;
       }
 
@@ -473,7 +713,7 @@
       const phoneClean = (phone || "").replace(/\D/g, "");
       const fnClean = limpiarTextoMeta(fn, false);
       const lnClean = limpiarTextoMeta(ln, false);
-      const ctClean = limpiarTextoMeta(ct, true); // Meta pide ciudades sin espacios en minúsculas
+      const ctClean = limpiarTextoMeta(ct, true);
       const currencyClean = (currency || "MXN").trim().toUpperCase();
       const numericValue = parseFloat(value) || 0;
       const evName = eventName || "Purchase";
@@ -483,12 +723,11 @@
         return;
       }
 
-      // Candado anti-duplicados del mismo día
       const hoy = new Date().toISOString().slice(0, 10);
-      const llaveUnica = `${evName}_${emailClean || phoneClean}_${hoy}`;
+      const llaveUnica = `${perfil.id}_${evName}_${emailClean || phoneClean}_${hoy}`;
       const historial = obtenerHistorial();
       if (historial.some(h => h.llaveUnica === llaveUnica)) {
-        agregarLog(`⚠️ Bloqueado por Duplicado: ${emailClean || phoneClean} ya tiene un "${evName} ENVIADO" el día de hoy.`, "text-amber-400");
+        agregarLog(`⚠️ Bloqueado en "${perfil.nombre}": ${emailClean || phoneClean} ya tiene un "${evName} ENVIADO" hoy.`, "text-amber-400");
         return;
       }
 
@@ -539,16 +778,16 @@
             currency: currencyClean,
             fechaHora: new Date().toLocaleString()
           });
-          agregarLog(`✅ ${evName} ENVIADO (${emailClean || phoneClean}) | EMQ Campos: ${Object.keys(userData).length} | event_id: ${eventId.substring(0, 10)}...`, "text-emerald-400");
+          agregarLog(`✅ [${perfil.nombre}] ${evName} ENVIADO (${emailClean || phoneClean}) | EMQ Campos: ${Object.keys(userData).length}`, "text-emerald-400");
         } else {
-          agregarLog(`❌ Error Meta (${emailClean || phoneClean}): ${JSON.stringify(resJson.error || resJson)}`, "text-red-400");
+          agregarLog(`❌ [${perfil.nombre}] Error Meta (${emailClean || phoneClean}): ${JSON.stringify(resJson.error || resJson)}`, "text-red-400");
         }
       } catch (error) {
         agregarLog(`❌ Error de Red: ${error.message}`, "text-red-400");
       }
     }
 
-    // 6. BOTONES DE INTERFAZ Y DESCARGA DE PLANTILLA
+    // 7. BOTONES DE INTERFAZ Y PLANTILLA CSV
     async function enviarIndividual() {
       await dispararEventoMeta({
         eventName: document.getElementById("single-event").value,
@@ -567,11 +806,11 @@
       const raw = document.getElementById("batch-input").value.trim();
       if (!raw) return;
       const lineas = raw.split("\n");
-      agregarLog(`⏳ Procesando lote de ${lineas.length} fila(s)...`, "text-purple-400");
+      const perfil = obtenerPerfilActivo();
+      agregarLog(`⏳ [${perfil.nombre}] Procesando lote de ${lineas.length} fila(s)...`, "text-purple-400");
 
       for (const linea of lineas) {
         const partes = linea.split(/\t|,/);
-        // Ignorar fila si es el encabezado pegado por accidente
         if (partes[0] && partes[0].toLowerCase().includes("email")) continue;
 
         if (partes.length >= 2) {
